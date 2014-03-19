@@ -8,4 +8,4 @@
 /DocBuilder/nbproject/private/
 /DocBuilder/build/
 
-!/DocBuilder/lib/jflex.jar
+!/DocBuilder/lib/jflex-1.5.0.jar
