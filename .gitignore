@@ -6,6 +6,6 @@
 *.war
 *.ear
 /DocBuilder/nbproject/private/
-
-!jflex.jar
 /DocBuilder/build/
+
+!/DocBuilder/lib/jflex.jar
