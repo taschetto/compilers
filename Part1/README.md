@@ -24,8 +24,8 @@ Crie mais dois tipos de templates de documentos (um recibo de pagamento, por exe
 
 #### Exercício 2 (classe "pessoa")
 
-Escreva um Analisador Sintático Descendente Recursivo que reconheça “pelo menos” a classe do exemplo, com as seguintes modificações:
+Escreva um Analisador Sintático Descendente Recursivo (ASDR) que reconheça *pelo menos* a classe do exemplo, com as seguintes modificações:
 
 * Todos os atributos são declarados antes dos métodos e são privativos
-* Todos os métidos são publicos e retornam void
+* Todos os métodos são publicos e retornam void
 * As expressões aceitam apenas os operadores “=”, “>”, “+” e “*”
