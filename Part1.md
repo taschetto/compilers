@@ -1,10 +1,10 @@
-=Projeto de Compiladores 2014/1
+#Projeto de Compiladores 2014/1
 
-==Exercício 1
+##Exercício 1
 
-===Analise Léxica e Análise Sintática Descentende Recursiva
+###Analise Léxica e Análise Sintática Descentende Recursiva
 
-====Objetivo
+####Objetivo
 
 Neste semestre o projeto de compiladores será dividido em 4 exercícios relacionados aos conteúdos da disciplina:
 
@@ -13,7 +13,7 @@ Neste semestre o projeto de compiladores será dividido em 4 exercícios relacio
 3. Verificação semântica (tipos)
 4. Geração de código
 
-====Execução
+####Execução
 
 O trabalho poderá ser realizado em grupos de até 3 alunos
 Cada exercício vale 25% da nota de trabalhos da disciplina. Os trabalhos são independentes, logo a não entrega de um trabalho não implica em prejuízo técnico para o exercício seguinte (exceto na nota)
