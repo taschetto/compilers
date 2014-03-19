@@ -2,9 +2,9 @@
 
 Academic project for the Compilers class (2014/1 - PUCRS - Brazil).
 
-Neste semestre o projeto de compiladores será dividido em 4 exercícios relacionados aos conteúdos da disciplina:
+The Compilers project will be splited into 4 exercises this semester:
 
-1. Análise léxica e sintática descendente recursiva
-2. Análise sintática ascendente e geração de uma tabela de símbolos
-3. Verificação semântica (tipos)
-4. Geração de código
+1. Lexical Analysis and Recursive Descendent Parser (LL Parser)
+2. Recursive Ascent Parser (LR Parser) and Symbol Table generation
+3. Semantic analysis (types)
+4. Code generation
