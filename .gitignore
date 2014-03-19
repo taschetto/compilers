@@ -5,8 +5,10 @@
 *.jar
 *.war
 *.ear
-/DocBuilder/nbproject/private/
-/DocBuilder/build/
 
-!/DocBuilder/lib/jflex-1.5.0.jar
+/Part1/DocBuilder/nbproject/private/
+/Part1/DocBuilder/build/
 /Part1/AsdrClass/nbproject/private/
+/Part1/AsdrClass/build/
+
+!/Parte1/lib/jflex-1.5.0.jar
