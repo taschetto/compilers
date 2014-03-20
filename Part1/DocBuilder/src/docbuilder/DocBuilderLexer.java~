@@ -19,7 +19,7 @@ import java.util.GregorianCalendar;
  * <a href="http://www.jflex.de/">JFlex</a> 1.5.0-SNAPSHOT
  * from the specification file <tt>src/docbuilder/DocBuilder.flex</tt>
  */
-public class DocBuilderLexer {
+class DocBuilderLexer {
 
   /** This character denotes the end of file */
   public static final int YYEOF = -1;
@@ -246,7 +246,7 @@ public class DocBuilderLexer {
    *
    * @param   in  the java.io.Reader to read input from.
    */
-  public DocBuilderLexer(java.io.Reader in) {
+  DocBuilderLexer(java.io.Reader in) {
     this.zzReader = in;
   }
 
@@ -256,7 +256,7 @@ public class DocBuilderLexer {
    *
    * @param   in  the java.io.Inputstream to read input from.
    */
-  public DocBuilderLexer(java.io.InputStream in) {
+  DocBuilderLexer(java.io.InputStream in) {
     this(new java.io.InputStreamReader
              (in, java.nio.charset.Charset.forName("UTF-8")));
   }

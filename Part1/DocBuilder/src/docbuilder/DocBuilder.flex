@@ -24,7 +24,7 @@ import java.util.GregorianCalendar;
 
 %unicode
 /*%public*/
-%standalone
+/*%standalone*/
 
 %%
 
