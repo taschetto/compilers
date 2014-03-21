@@ -1,4 +1,4 @@
-## Parte 1: Analise Léxica e Análise Sintática Descendente Recursiva
+## Lexical Analysis and Recursive Descendent Parser (LL Parser)
 
 ### Considerações
 
