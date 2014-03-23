@@ -10,10 +10,14 @@
 *.war
 *.ear
 
+# Other
+*.java~
+
 /Part1/DocBuilder/nbproject/private/
 /Part1/DocBuilder/build/
 /Part1/DocBuilder/dist/
 
 /Part1/AsdrClass/nbproject/private/
+/Part1/AsdrClass/build/
 /Part1/AsdrClass/build/
 

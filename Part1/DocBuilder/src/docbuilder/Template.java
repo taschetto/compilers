@@ -8,7 +8,7 @@ package docbuilder;
 
 /**
  *
- * @author guilherme
+ * @author Guilherme Taschetto
  */
 public enum Template {
   Contract,

@@ -10,68 +10,61 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Dictionary;
+import java.util.GregorianCalendar;
 
 /**
  *
- * @author guilherme
+ * @author Guilherme Taschetto
  */
 public class DocBuilder
 {
   public void CreateDocument(Template template, Dictionary<String, String> values, String outputPath)
   {
-    Yylex scanner = null;
+    String inputPath = "resources/";
+    int initialState = Yylex.YYINITIAL;              
+
+    switch(template)
+    {
+      case Contract:
+        inputPath += "contract.rtf";
+        initialState = Yylex.CONTRACT;
+        break;
+
+      case Receipt:
+        inputPath += "receipt.rtf";
+        initialState = Yylex.RECEIPT;          
+        break;
+
+      case Certificate:
+        inputPath += "certificate.rtf";
+        initialState = Yylex.CERTIFICATE;
+        break;
+    }
+      
     try {
-      String inputFile = "";
-      int initialState = Yylex.YYINITIAL;              
-      
-      switch(template)
-      {
-        case Contract:
-          inputFile = "contract.rtf";
-          initialState = Yylex.CONTRACT;
-          break;
-          
-        case Receipt:
-          inputFile = "receipt.rtf";
-          initialState = Yylex.RECEIPT;          
-          break;
-        
-        case Certificate:
-          inputFile = "certificate.rtf";
-          initialState = Yylex.CERTIFICATE;
-          break;
-      }
-      
-      InputStream istream = getClass().getResourceAsStream("resources/" + inputFile);
+      InputStream istream = getClass().getResourceAsStream(inputPath);
       Reader reader = new java.io.InputStreamReader(istream, "UTF-8");
-      
-      scanner = new Yylex(reader);
-      scanner.yybegin(Yylex.CONTRACT);
-      
       BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath));
-      while (scanner.yylex() != Yylex.YYEOF)
-      {
-      }
+
+      Yylex scanner = new Yylex(reader, writer);
+      scanner.yybegin(initialState);
+      scanner.yylex();
+      
       writer.close();
     }
     catch (java.io.FileNotFoundException e) {
-      System.out.println("File not found : \"resources/contract.rtt\"");
+      System.out.println("File not found : \"" + inputPath + "\"");
     }
     catch (java.io.IOException e) {
-      System.out.println("IO error scanning file \"resources/contract.rtf\"");
+      System.out.println("IO error scanning file \"" + inputPath + "\"");
       System.out.println(e);
     }
     catch (Exception e) {
       System.out.println("Unexpected exception:");
       e.printStackTrace();
     }
-  }
-    
-  public static void main(String[] argv)
-  {
-    DocBuilder db = new DocBuilder();
-    
-    db.CreateDocument(Template.Contract, null, "blach.rtf");
   }
 }

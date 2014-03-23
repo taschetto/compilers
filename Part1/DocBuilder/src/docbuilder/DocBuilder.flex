@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.io.BufferedWriter;
 
 %%
 
@@ -25,6 +26,13 @@ import java.util.GregorianCalendar;
 
 %{
   public String textToPrint = "";
+  private BufferedWriter writer = null;
+
+  public Yylex(java.io.Reader in, BufferedWriter out)
+  {
+    this.writer = out;
+    this.zzReader = in;
+  }
 %} 
 
 %%
@@ -35,129 +43,160 @@ import java.util.GregorianCalendar;
 
 <CONTRACT>
 {
+  "#local#"
+  {
+    writer.write("Porto Alegre");
+  }
+
   "#data#"
   {
     Calendar c = new GregorianCalendar();
     Date d = c.getTime();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    textToPrint = sdf.format(d);
+    writer.write(sdf.format(d));
   }
 
   "#nome#"
   {
-    textToPrint = "Guilherme Taschetto";
+    writer.write("Guilherme Taschetto");
   }
 
   "#valor#"
   {
-	  textToPrint = "12345.99";
+	  writer.write("12345.99");
   }
 
   "#numero#"
   {
-	  textToPrint = "10";
+	  writer.write("10");
   }
 
   "#juros#"
   {
-	  textToPrint = "0.8%";
+	  writer.write("0.8");
   }
 
   "#parcelas#"
   {
     String r = "";
+    Calendar c = GregorianCalendar.getInstance();
+    
     for (int i = 0; i < 10; i++)
     {
-      r += " " + i;
+      c.add(Calendar.MONTH, 1);
+      Date d = c.getTime();
+      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+      r += "[" + (i + 1) + "] " + sdf.format(d) + " ";
 	  }
 
-  	textToPrint = r;
+  	writer.write(r);
   }
 
   [^]
   {
-    textToPrint = yytext();
+    writer.write(yytext());
   }
 }
 
 <RECEIPT>
 {
-  "#nome"
+  "#nome#"
   {
-    textToPrint = yytext();
+    writer.write("Guilherme Taschetto");
   }
 
   "#valor#"
   {
-    textToPrint = yytext();
+    writer.write("1.800,00");
   }
 
-  "#pagador"
+  "#pagador#"
   {
-    textToPrint = yytext();
+    writer.write("Fernando Delazeri");
   }
 
   "#item#"
   {
-    textToPrint = yytext();
+    writer.write("consultoria em desenvolvimento de software");
+  }
+
+  "#local#"
+  {
+    writer.write("Porto Alegre");
   }
 
   "#data#"
   {
-    textToPrint = yytext();
+    Calendar c = new GregorianCalendar();
+    Date d = c.getTime();
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    writer.write(sdf.format(d));
+  }
+
+  [^]
+  {
+    writer.write(yytext());
   }
 }
 
 <CERTIFICATE>
 {
-  "#nome"
+  "#nome#"
   {
-    textToPrint = yytext();
+    writer.write("Guilherme Taschetto");
   }
 
-  "#curso"
+  "#curso#"
   {
-    textToPrint = yytext();
+    writer.write("Compiladores");
   }
 
   "#professor#"
   {
-    textToPrint = yytext();
+    writer.write("Alexandre Agustini");
   }
 
   "#cargahoraria#"
   {
-    textToPrint = yytext();
+    writer.write("60");
   }
 
   "#local#"
   {
-    textToPrint = yytext();
+    writer.write("Porto Alegre");
   }
 
   "#data#"
   {
-    textToPrint = yytext();
+    Calendar c = new GregorianCalendar();
+    Date d = c.getTime();
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    writer.write(sdf.format(d));
   }
 
   "#nomeassinatura1#"
   {
-    textToPrint = yytext();
+    writer.write("Alexandre Agustini");
   }
 
   "#cargoassinatura1#"
   {
-    textToPrint = yytext();
+    writer.write("Professor");
   }
 
   "#nomeassinatura2#"
   {
-    textToPrint = yytext();
+    writer.write("Alfio Martini");
   }
 
-  "#cargoassinatura2"
+  "#cargoassinatura2#"
   {
-    textToPrint = yytext();
+    writer.write("Diretor da Faculdade de Informática");
+  }
+
+  [^]
+  {
+    writer.write(yytext());
   }
 }
 
