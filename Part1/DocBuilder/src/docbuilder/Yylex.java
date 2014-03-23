@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.io.BufferedWriter;
+import java.util.Map;
 
 
 /**
@@ -46,9 +47,9 @@ class Yylex {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\43\0\1\1\15\0\1\25\1\26\56\0\1\5\1\0\1\4\1\6"+
-    "\1\12\1\23\1\21\1\24\1\22\1\16\1\0\1\2\1\11\1\10"+
-    "\1\3\1\20\1\0\1\14\1\17\1\7\1\15\1\13\uff89\0";
+    "\43\0\1\1\15\0\1\25\1\25\56\0\1\5\1\0\1\4\1\16"+
+    "\1\10\1\23\1\21\1\24\1\22\1\14\1\0\1\2\1\7\1\6"+
+    "\1\3\1\20\1\0\1\12\1\15\1\17\1\13\1\11\uff89\0";
 
   /** 
    * Translates characters to character classes
@@ -61,13 +62,10 @@ class Yylex {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\4\0\4\1\70\0\1\2\1\3\6\0\1\4\5\0"+
-    "\1\5\1\0\1\6\1\7\1\0\1\10\3\0\1\11"+
-    "\2\0\1\12\7\0\1\13\4\0\1\14\7\0\1\15"+
-    "\7\0\1\16\7\0\1\17\1\20\1\21";
+    "\4\0\4\1\62\0\1\2\1\3\17\0\1\4\11\0";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[130];
+    int [] result = new int[85];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -92,26 +90,20 @@ class Yylex {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\27\0\56\0\105\0\0\0\134\0\163\0\212"+
-    "\0\241\0\270\0\317\0\346\0\375\0\u0114\0\u012b\0\u0142"+
-    "\0\u0159\0\u0170\0\u0187\0\u019e\0\u01b5\0\u01cc\0\u01e3\0\u01fa"+
-    "\0\u0211\0\u0228\0\u023f\0\u0256\0\u026d\0\u0284\0\u029b\0\u02b2"+
-    "\0\u02c9\0\u02e0\0\u02f7\0\u030e\0\u0325\0\u033c\0\u0353\0\u036a"+
-    "\0\u0381\0\u0398\0\u03af\0\u03c6\0\u03dd\0\u03f4\0\u040b\0\u0422"+
-    "\0\u0439\0\u0450\0\u0467\0\u047e\0\u0495\0\u04ac\0\u04c3\0\u04da"+
-    "\0\u04f1\0\u0508\0\u051f\0\u0536\0\u054d\0\u0564\0\u057b\0\u0592"+
-    "\0\0\0\0\0\u05a9\0\u05c0\0\u05d7\0\u05ee\0\u0605\0\u061c"+
-    "\0\0\0\u0633\0\u064a\0\u0661\0\u0678\0\u068f\0\0\0\u06a6"+
-    "\0\0\0\0\0\u06bd\0\0\0\u06d4\0\u06eb\0\u0702\0\0"+
-    "\0\u0719\0\u0730\0\0\0\u0747\0\u075e\0\u0775\0\u078c\0\u07a3"+
-    "\0\u07ba\0\u07d1\0\0\0\u07e8\0\u07ff\0\u0816\0\u082d\0\0"+
-    "\0\u0844\0\u085b\0\u0872\0\u0889\0\u08a0\0\u08b7\0\u08ce\0\0"+
-    "\0\u08e5\0\u08fc\0\u0913\0\u092a\0\u0941\0\u0958\0\u096f\0\0"+
-    "\0\u0986\0\u099d\0\u09b4\0\u09cb\0\u09e2\0\u09f9\0\u0a10\0\0"+
-    "\0\0\0\0";
+    "\0\0\0\26\0\54\0\102\0\0\0\130\0\156\0\204"+
+    "\0\232\0\260\0\306\0\334\0\362\0\u0108\0\u011e\0\u0134"+
+    "\0\u014a\0\u0160\0\u0176\0\u018c\0\u01a2\0\u01b8\0\u01ce\0\u01e4"+
+    "\0\u01fa\0\u0210\0\u0226\0\u023c\0\u0252\0\u0268\0\u027e\0\u0294"+
+    "\0\u02aa\0\u02c0\0\u02d6\0\u02ec\0\u0302\0\u0318\0\u032e\0\u0344"+
+    "\0\u035a\0\u0370\0\u0386\0\u039c\0\u03b2\0\u03c8\0\u03de\0\u03f4"+
+    "\0\u040a\0\u0420\0\u0436\0\u044c\0\u0462\0\u0478\0\u048e\0\u04a4"+
+    "\0\u04ba\0\u04d0\0\0\0\0\0\u04e6\0\u04fc\0\u0512\0\u0528"+
+    "\0\u053e\0\u0554\0\u056a\0\u0580\0\u0596\0\u05ac\0\u05c2\0\u05d8"+
+    "\0\u05ee\0\u0604\0\u061a\0\0\0\u0630\0\u0646\0\u065c\0\u0672"+
+    "\0\u0688\0\u069e\0\u06b4\0\u06ca\0\u06e0";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[130];
+    int [] result = new int[85];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -134,43 +126,34 @@ class Yylex {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\27\0\1\5\1\6\26\5\1\7\26\5\1\10\25\5"+
-    "\2\0\1\11\3\0\1\12\1\0\1\13\2\0\1\14"+
-    "\2\0\1\15\1\0\1\16\10\0\1\11\3\0\1\12"+
-    "\1\0\1\17\2\0\1\20\4\0\1\21\1\0\1\22"+
-    "\6\0\1\11\1\0\1\23\1\0\1\12\1\0\1\24"+
-    "\7\0\1\25\11\0\1\26\30\0\1\27\24\0\1\30"+
-    "\11\0\1\31\16\0\1\32\36\0\1\33\16\0\1\34"+
-    "\24\0\1\30\30\0\1\35\26\0\1\36\30\0\1\37"+
-    "\24\0\1\40\7\0\1\41\14\0\1\42\37\0\1\43"+
-    "\16\0\1\44\31\0\1\45\30\0\1\46\26\0\1\47"+
-    "\17\0\1\50\40\0\1\51\26\0\1\52\14\0\1\53"+
-    "\45\0\1\54\17\0\1\55\30\0\1\56\26\0\1\57"+
-    "\23\0\1\60\20\0\1\61\30\0\1\62\26\0\1\63"+
-    "\33\0\1\64\26\0\1\65\17\0\1\66\26\0\1\67"+
-    "\27\0\1\70\25\0\1\71\30\0\1\72\32\0\1\73"+
-    "\36\0\1\74\24\0\1\75\21\0\1\76\37\0\1\77"+
-    "\5\0\1\100\25\0\1\101\26\0\1\102\41\0\1\103"+
-    "\26\0\1\104\31\0\1\105\21\0\1\106\30\0\1\107"+
-    "\20\0\1\110\21\0\1\111\30\0\1\112\1\0\1\113"+
-    "\24\0\1\114\24\0\1\102\3\0\1\115\33\0\1\116"+
-    "\15\0\1\117\30\0\1\120\24\0\1\121\26\0\1\122"+
-    "\27\0\1\123\25\0\1\124\30\0\1\125\30\0\1\126"+
-    "\45\0\1\127\3\0\1\130\44\0\1\131\26\0\1\132"+
-    "\10\0\1\133\32\0\1\134\35\0\1\135\31\0\1\136"+
-    "\12\0\1\137\42\0\1\140\26\0\1\141\26\0\1\142"+
-    "\10\0\1\143\44\0\1\144\23\0\1\145\34\0\1\146"+
-    "\7\0\1\147\24\0\1\150\47\0\1\151\11\0\1\152"+
-    "\31\0\1\153\32\0\1\154\22\0\1\155\32\0\1\156"+
-    "\17\0\1\157\22\0\1\160\32\0\1\161\43\0\1\162"+
-    "\13\0\1\163\26\0\1\164\24\0\1\165\36\0\1\166"+
-    "\26\0\1\167\12\0\1\170\41\0\1\171\26\0\1\172"+
-    "\17\0\1\173\26\0\1\174\46\0\1\154\1\175\25\0"+
-    "\1\176\1\177\1\0\1\200\26\0\1\201\26\0\1\202"+
-    "\25\0";
+    "\26\0\1\5\1\6\25\5\1\7\25\5\1\10\24\5"+
+    "\2\0\1\11\3\0\1\12\2\0\1\13\2\0\1\14"+
+    "\1\0\1\15\1\0\1\16\7\0\1\11\3\0\1\17"+
+    "\2\0\1\13\4\0\1\15\1\0\1\20\1\0\1\21"+
+    "\5\0\1\11\1\0\1\22\1\0\1\23\7\0\1\15"+
+    "\1\0\1\24\10\0\1\25\25\0\1\26\7\0\1\27"+
+    "\17\0\1\30\33\0\1\31\17\0\1\32\25\0\1\33"+
+    "\23\0\1\26\27\0\1\34\37\0\1\35\13\0\1\36"+
+    "\5\0\1\37\15\0\1\40\34\0\1\41\17\0\1\42"+
+    "\30\0\1\43\25\0\1\44\20\0\1\45\35\0\1\46"+
+    "\32\0\1\47\20\0\1\50\34\0\1\51\14\0\1\52"+
+    "\27\0\1\53\25\0\1\54\22\0\1\55\21\0\1\56"+
+    "\27\0\1\57\30\0\1\60\25\0\1\61\20\0\1\62"+
+    "\25\0\1\63\27\0\1\64\24\0\1\65\26\0\1\66"+
+    "\27\0\1\60\37\0\1\67\21\0\1\70\20\0\1\71"+
+    "\40\0\1\72\4\0\1\60\24\0\1\73\36\0\1\70"+
+    "\25\0\1\60\30\0\1\60\11\0\1\74\34\0\1\75"+
+    "\33\0\1\45\12\0\1\76\1\0\1\77\23\0\1\60"+
+    "\23\0\1\73\3\0\1\100\30\0\1\101\17\0\1\102"+
+    "\30\0\1\100\44\0\1\103\16\0\1\104\25\0\1\105"+
+    "\15\0\1\106\23\0\1\107\37\0\1\110\25\0\1\45"+
+    "\25\0\1\111\22\0\1\112\35\0\1\113\4\0\1\114"+
+    "\31\0\1\115\26\0\1\116\31\0\1\117\20\0\1\120"+
+    "\42\0\1\121\22\0\1\122\13\0\1\60\33\0\1\123"+
+    "\24\0\1\124\20\0\1\125\45\0\1\60";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[2599];
+    int [] result = new int[1782];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -208,13 +191,11 @@ class Yylex {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\10\3\0\1\11\3\1\70\0\2\11\6\0\1\11"+
-    "\5\0\1\11\1\0\2\11\1\0\1\11\3\0\1\11"+
-    "\2\0\1\11\7\0\1\11\4\0\1\11\7\0\1\11"+
-    "\7\0\1\11\7\0\3\11";
+    "\1\10\3\0\1\11\3\1\62\0\2\11\17\0\1\11"+
+    "\11\0";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[130];
+    int [] result = new int[85];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -284,11 +265,13 @@ class Yylex {
   /* user code: */
   public String textToPrint = "";
   private BufferedWriter writer = null;
+  private Map<String, String> values = null;
 
-  public Yylex(java.io.Reader in, BufferedWriter out)
+  public Yylex(java.io.Reader in, BufferedWriter out, Map<String, String> values)
   {
-    this.writer = out;
     this.zzReader = in;
+    this.writer = out;
+    this.values = values;
   }
 
 
@@ -652,85 +635,41 @@ class Yylex {
         case 1: 
           { writer.write(yytext());
           }
-        case 18: break;
+        case 5: break;
         case 2: 
+          { String text = values.get(yytext());
+    if (text == null) text = "#campo nao informado#";
+    writer.write(text);
+          }
+        case 6: break;
+        case 3: 
           { Calendar c = new GregorianCalendar();
     Date d = c.getTime();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     writer.write(sdf.format(d));
           }
-        case 19: break;
-        case 3: 
-          { writer.write("Guilherme Taschetto");
-          }
-        case 20: break;
+        case 7: break;
         case 4: 
-          { writer.write("consultoria em desenvolvimento de software");
-          }
-        case 21: break;
-        case 5: 
-          { writer.write("Porto Alegre");
-          }
-        case 22: break;
-        case 6: 
-          { writer.write("12345.99");
-          }
-        case 23: break;
-        case 7: 
-          { writer.write("0.8");
-          }
-        case 24: break;
-        case 8: 
-          { writer.write("1.800,00");
-          }
-        case 25: break;
-        case 9: 
-          { writer.write("Compiladores");
-          }
-        case 26: break;
-        case 10: 
-          { writer.write("10");
-          }
-        case 27: break;
-        case 11: 
-          { writer.write("Fernando Delazeri");
-          }
-        case 28: break;
-        case 12: 
           { String r = "";
     Calendar c = GregorianCalendar.getInstance();
     
-    for (int i = 0; i < 10; i++)
+    String text = values.get("#numero#");
+
+    if (text != null)
     {
-      c.add(Calendar.MONTH, 1);
-      Date d = c.getTime();
-      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-      r += "[" + (i + 1) + "] " + sdf.format(d) + " ";
-	  }
+      int num = Integer.parseInt(text);
+      for (int i = 0; i < num; i++)
+      {
+        c.add(Calendar.MONTH, 1);
+        Date d = c.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        r += "[" + (i + 1) + "] " + sdf.format(d) + " ";
+  	  }
+    }
 
   	writer.write(r);
           }
-        case 29: break;
-        case 13: 
-          { writer.write("Alexandre Agustini");
-          }
-        case 30: break;
-        case 14: 
-          { writer.write("60");
-          }
-        case 31: break;
-        case 15: 
-          { writer.write("Alfio Martini");
-          }
-        case 32: break;
-        case 16: 
-          { writer.write("Professor");
-          }
-        case 33: break;
-        case 17: 
-          { writer.write("Diretor da Faculdade de Informática");
-          }
-        case 34: break;
+        case 8: break;
         default: 
           if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
             zzAtEOF = true;

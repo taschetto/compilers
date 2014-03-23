@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.io.BufferedWriter;
+import java.util.Map;
 
 %%
 
@@ -27,11 +28,13 @@ import java.io.BufferedWriter;
 %{
   public String textToPrint = "";
   private BufferedWriter writer = null;
+  private Map<String, String> values = null;
 
-  public Yylex(java.io.Reader in, BufferedWriter out)
+  public Yylex(java.io.Reader in, BufferedWriter out, Map<String, String> values)
   {
-    this.writer = out;
     this.zzReader = in;
+    this.writer = out;
+    this.values = values;
   }
 %} 
 
@@ -43,9 +46,11 @@ import java.io.BufferedWriter;
 
 <CONTRACT>
 {
-  "#local#"
+  "#local#" | "#nome#" | "#valor#" | "#numero#" | "#juros#"
   {
-    writer.write("Porto Alegre");
+    String text = values.get(yytext());
+    if (text == null) text = "#campo nao informado#";
+    writer.write(text);
   }
 
   "#data#"
@@ -56,38 +61,24 @@ import java.io.BufferedWriter;
     writer.write(sdf.format(d));
   }
 
-  "#nome#"
-  {
-    writer.write("Guilherme Taschetto");
-  }
-
-  "#valor#"
-  {
-	  writer.write("12345.99");
-  }
-
-  "#numero#"
-  {
-	  writer.write("10");
-  }
-
-  "#juros#"
-  {
-	  writer.write("0.8");
-  }
-
   "#parcelas#"
   {
     String r = "";
     Calendar c = GregorianCalendar.getInstance();
     
-    for (int i = 0; i < 10; i++)
+    String text = values.get("#numero#");
+
+    if (text != null)
     {
-      c.add(Calendar.MONTH, 1);
-      Date d = c.getTime();
-      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-      r += "[" + (i + 1) + "] " + sdf.format(d) + " ";
-	  }
+      int num = Integer.parseInt(text);
+      for (int i = 0; i < num; i++)
+      {
+        c.add(Calendar.MONTH, 1);
+        Date d = c.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        r += "[" + (i + 1) + "] " + sdf.format(d) + " ";
+  	  }
+    }
 
   	writer.write(r);
   }
@@ -100,29 +91,11 @@ import java.io.BufferedWriter;
 
 <RECEIPT>
 {
-  "#nome#"
+  "#nome#" | "#valor#" | "#pagador#" | "#item#" | "#local#"
   {
-    writer.write("Guilherme Taschetto");
-  }
-
-  "#valor#"
-  {
-    writer.write("1.800,00");
-  }
-
-  "#pagador#"
-  {
-    writer.write("Fernando Delazeri");
-  }
-
-  "#item#"
-  {
-    writer.write("consultoria em desenvolvimento de software");
-  }
-
-  "#local#"
-  {
-    writer.write("Porto Alegre");
+    String text = values.get(yytext());
+    if (text == null) text = "#campo nao informado#";
+    writer.write(text);
   }
 
   "#data#"
@@ -141,29 +114,12 @@ import java.io.BufferedWriter;
 
 <CERTIFICATE>
 {
-  "#nome#"
+  "#nome#" | "#curso#" | "#professor#" | "#cargahoraria#" | "#local#" |
+  "#nomeassinatura1#" | "#cargoassinatura1#" | "#nomeassinatura2#" | "#cargoassinatura2#"
   {
-    writer.write("Guilherme Taschetto");
-  }
-
-  "#curso#"
-  {
-    writer.write("Compiladores");
-  }
-
-  "#professor#"
-  {
-    writer.write("Alexandre Agustini");
-  }
-
-  "#cargahoraria#"
-  {
-    writer.write("60");
-  }
-
-  "#local#"
-  {
-    writer.write("Porto Alegre");
+    String text = values.get(yytext());
+    if (text == null) text = "#campo nao informado#";
+    writer.write(text);
   }
 
   "#data#"
@@ -172,26 +128,6 @@ import java.io.BufferedWriter;
     Date d = c.getTime();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     writer.write(sdf.format(d));
-  }
-
-  "#nomeassinatura1#"
-  {
-    writer.write("Alexandre Agustini");
-  }
-
-  "#cargoassinatura1#"
-  {
-    writer.write("Professor");
-  }
-
-  "#nomeassinatura2#"
-  {
-    writer.write("Alfio Martini");
-  }
-
-  "#cargoassinatura2#"
-  {
-    writer.write("Diretor da Faculdade de Informática");
   }
 
   [^]
