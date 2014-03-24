@@ -6,6 +6,14 @@
 
 package docbuilder;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author guilherme
@@ -30,55 +38,88 @@ public class DocBuilderUI extends javax.swing.JFrame {
 
     jPanel1 = new javax.swing.JPanel();
     jComboBox1 = new javax.swing.JComboBox();
-    jScrollPane1 = new javax.swing.JScrollPane();
-    jList1 = new javax.swing.JList();
     jTextField1 = new javax.swing.JTextField();
     jButton2 = new javax.swing.JButton();
+    jLabel1 = new javax.swing.JLabel();
+    jLabel2 = new javax.swing.JLabel();
+    jScrollPane2 = new javax.swing.JScrollPane();
+    jTable1 = new javax.swing.JTable();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("DocBuilder - Guilherme Taschetto e Fernando Delazeri");
     setResizable(false);
-
-    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-    jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        jComboBox1ActionPerformed(evt);
+    addWindowListener(new java.awt.event.WindowAdapter() {
+      public void windowOpened(java.awt.event.WindowEvent evt) {
+        OnWindowOpened(evt);
       }
     });
 
-    jList1.setModel(new javax.swing.AbstractListModel() {
-      String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-      public int getSize() { return strings.length; }
-      public Object getElementAt(int i) { return strings[i]; }
+    jComboBox1.setModel(new DefaultComboBoxModel(Template.values()));
+    jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        OnTemplateChanged(evt);
+      }
     });
-    jScrollPane1.setViewportView(jList1);
 
-    jTextField1.setText("jTextField1");
+    jTextField1.setText("output/novoDocumento.rtf");
+    jTextField1.setToolTipText("");
 
-    jButton2.setText("jButton2");
+    jButton2.setText("Gerar Documento");
+    jButton2.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton2ActionPerformed(evt);
+      }
+    });
+
+    jLabel1.setLabelFor(jComboBox1);
+    jLabel1.setText("Template:");
+
+    jLabel2.setLabelFor(jTextField1);
+    jLabel2.setText("Saída:");
+
+    jTable1.setModel(new javax.swing.table.DefaultTableModel(
+      new Object [][] {
+
+      },
+      new String [] {
+
+      }
+    ));
+    jScrollPane2.setViewportView(jTable1);
 
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
     jPanel1Layout.setHorizontalGroup(
       jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-      .addComponent(jScrollPane1)
       .addGroup(jPanel1Layout.createSequentialGroup()
-        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
+        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+          .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+            .addComponent(jLabel2)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+          .addGroup(jPanel1Layout.createSequentialGroup()
+            .addComponent(jLabel1)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+          .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(0, 17, Short.MAX_VALUE))
     );
     jPanel1Layout.setVerticalGroup(
       jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanel1Layout.createSequentialGroup()
-        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(jLabel1))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(jLabel2)
           .addComponent(jButton2))
-        .addContainerGap())
+        .addGap(1, 1, 1))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -86,23 +127,41 @@ public class DocBuilderUI extends javax.swing.JFrame {
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        .addContainerGap())
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addContainerGap()
+        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addContainerGap())
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+  private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
     // TODO add your handling code here:
-  }//GEN-LAST:event_jComboBox1ActionPerformed
+    DocBuilder db = new DocBuilder();
+    TableModel m = this.jTable1.getModel();
+    HashMap<String, String> values = new HashMap<String, String>();
+    
+    for (int i = 0; i < m.getRowCount(); i++)
+    {
+      values.put(m.getValueAt(i, 0).toString(), m.getValueAt(i, 1).toString());
+    }
+    
+    db.CreateDocument((Template)jComboBox1.getSelectedItem(), values, jTextField1.getText());
+  }//GEN-LAST:event_jButton2ActionPerformed
+
+  private void OnTemplateChanged(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OnTemplateChanged
+    this.CreateValues();
+  }//GEN-LAST:event_OnTemplateChanged
+
+  private void OnWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_OnWindowOpened
+    this.CreateValues();
+  }//GEN-LAST:event_OnWindowOpened
 
   /**
    * @param args the command line arguments
@@ -142,9 +201,59 @@ public class DocBuilderUI extends javax.swing.JFrame {
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton jButton2;
   private javax.swing.JComboBox jComboBox1;
-  private javax.swing.JList jList1;
+  private javax.swing.JLabel jLabel1;
+  private javax.swing.JLabel jLabel2;
   private javax.swing.JPanel jPanel1;
-  private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JScrollPane jScrollPane2;
+  private javax.swing.JTable jTable1;
   private javax.swing.JTextField jTextField1;
   // End of variables declaration//GEN-END:variables
+
+  private static TableModel toTableModel(Map<?,?> map) {
+    DefaultTableModel model = new DefaultTableModel(
+        new Object[] { "Campo", "Valor" }, 0
+    );
+    for (Map.Entry<?,?> entry : map.entrySet()) {
+        model.addRow(new Object[] { entry.getKey(), entry.getValue() });
+    }
+    return model;
+  }
+  
+  private void CreateValues()
+  {
+    Map<String, String> values = new LinkedHashMap<String, String>();
+    
+    switch((Template)jComboBox1.getSelectedItem())
+    {
+      case Contract:
+        values.put("#local#", "Porto Alegre");
+        values.put("#nome#", "Guilherme Taschetto");
+        values.put("#valor#", "12345,99");
+        values.put("#numero#", "10");
+        values.put("#juros#", "0.8");
+        break;
+        
+      case Receipt:
+        values.put("#nome#", "Guilherme Taschetto");
+        values.put("#valor#", "12345,99");
+        values.put("#pagador#", "Fernando Delazeri");
+        values.put("#item#", "desenvolvimento de software");
+        values.put("#local#", "Porto Alegre");
+        break;
+        
+      case Certificate:
+        values.put("#nome#", "Guilherme Taschetto");
+        values.put("#curso#", "Compiladores");
+        values.put("#professor#", "Alexandre Agustini");
+        values.put("#cargahoraria#", "60");
+        values.put("#local#", "Porto Alegre");
+        values.put("#nomeassinatura1#", "Alexandre Agustini");
+        values.put("#cargoassinatura1#", "Professor");
+        values.put("#nomeassinatura2#", "Alfio Martini");
+        values.put("#cargoassinatura2#", "Diretor");
+        break;
+    }
+    
+    this.jTable1.setModel(toTableModel(values));    
+  }
 }

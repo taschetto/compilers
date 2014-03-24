@@ -6,6 +6,8 @@
 
 package docbuilder;
 
+import oracle.jrockit.jfr.tools.ConCatRepository;
+
 /**
  *
  * @author Guilherme Taschetto
@@ -13,5 +15,21 @@ package docbuilder;
 public enum Template {
   Contract,
   Receipt,
-  Certificate
+  Certificate;
+  
+  @Override
+  public String toString()
+  {
+    switch(this)
+    {
+      case Contract:
+        return "Contrato";
+      case Certificate:
+        return "Certificado";
+      case Receipt:
+        return "Recibo";
+      default:
+        return "";
+    }
+  }
 }

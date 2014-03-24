@@ -7,9 +7,13 @@
 package docbuilder;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFrame;
@@ -46,6 +50,10 @@ public class DocBuilder
     try {
       InputStream istream = getClass().getResourceAsStream(inputPath);
       Reader reader = new java.io.InputStreamReader(istream, "UTF-8");
+      
+      Path pathToFile = Paths.get(outputPath);
+      Files.createDirectories(pathToFile.getParent());
+
       BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath));
 
       Yylex scanner = new Yylex(reader, writer, values);
@@ -54,32 +62,10 @@ public class DocBuilder
       
       writer.close();
     }
-    catch (java.io.FileNotFoundException e) {
-      System.out.println("File not found : \"" + inputPath + "\"");
-    }
-    catch (java.io.IOException e) {
-      System.out.println("IO error scanning file \"" + inputPath + "\"");
-      System.out.println(e);
-    }
     catch (Exception e) {
       System.out.println("Unexpected exception:");
+      System.out.println(e.getMessage());
       e.printStackTrace();
     }
-  }
-  
-  public static void main(String[] argv)
-  {
-    DocBuilderUI ui = new DocBuilderUI();
-    ui.setVisible(true);
-    
-    Map<String, String> values = new HashMap<String, String>();
-    values.put("#local#", "Porto Alegre");
-    values.put("#nome#", "Guilherme Taschetto");
-    values.put("#valor#", "12345,99");
-    values.put("#numero#", "10");
-    values.put("#juros#", "0.8");
-    
-    DocBuilder db = new DocBuilder();
-    db.CreateDocument(Template.Contract, values, "newContract.rtf");
   }
 }
