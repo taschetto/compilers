@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -36,14 +37,14 @@ public class DocBuilderUI extends javax.swing.JFrame {
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
-    jPanel1 = new javax.swing.JPanel();
-    jComboBox1 = new javax.swing.JComboBox();
-    jTextField1 = new javax.swing.JTextField();
-    jButton2 = new javax.swing.JButton();
-    jLabel1 = new javax.swing.JLabel();
-    jLabel2 = new javax.swing.JLabel();
-    jScrollPane2 = new javax.swing.JScrollPane();
-    jTable1 = new javax.swing.JTable();
+    mainPanel = new javax.swing.JPanel();
+    templateComboBox = new javax.swing.JComboBox();
+    outputPathTextField = new javax.swing.JTextField();
+    generateButton = new javax.swing.JButton();
+    templateLabel = new javax.swing.JLabel();
+    outputPathLabel = new javax.swing.JLabel();
+    tableScrollPane = new javax.swing.JScrollPane();
+    templateValuesTable = new javax.swing.JTable();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("DocBuilder - Guilherme Taschetto e Fernando Delazeri");
@@ -54,30 +55,30 @@ public class DocBuilderUI extends javax.swing.JFrame {
       }
     });
 
-    jComboBox1.setModel(new DefaultComboBoxModel(Template.values()));
-    jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+    templateComboBox.setModel(new DefaultComboBoxModel(Template.values()));
+    templateComboBox.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         OnTemplateChanged(evt);
       }
     });
 
-    jTextField1.setText("output/novoDocumento.rtf");
-    jTextField1.setToolTipText("");
+    outputPathTextField.setText("output/novoDocumento.rtf");
+    outputPathTextField.setToolTipText("");
 
-    jButton2.setText("Gerar Documento");
-    jButton2.addActionListener(new java.awt.event.ActionListener() {
+    generateButton.setText("Gerar Documento");
+    generateButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        jButton2ActionPerformed(evt);
+        generateButtonActionPerformed(evt);
       }
     });
 
-    jLabel1.setLabelFor(jComboBox1);
-    jLabel1.setText("Template:");
+    templateLabel.setLabelFor(templateComboBox);
+    templateLabel.setText("Template:");
 
-    jLabel2.setLabelFor(jTextField1);
-    jLabel2.setText("Saída:");
+    outputPathLabel.setLabelFor(outputPathTextField);
+    outputPathLabel.setText("Saída:");
 
-    jTable1.setModel(new javax.swing.table.DefaultTableModel(
+    templateValuesTable.setModel(new javax.swing.table.DefaultTableModel(
       new Object [][] {
 
       },
@@ -85,40 +86,40 @@ public class DocBuilderUI extends javax.swing.JFrame {
 
       }
     ));
-    jScrollPane2.setViewportView(jTable1);
+    tableScrollPane.setViewportView(templateValuesTable);
 
-    javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-    jPanel1.setLayout(jPanel1Layout);
-    jPanel1Layout.setHorizontalGroup(
-      jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(jPanel1Layout.createSequentialGroup()
-        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-          .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-            .addComponent(jLabel2)
+    javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+    mainPanel.setLayout(mainPanelLayout);
+    mainPanelLayout.setHorizontalGroup(
+      mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(mainPanelLayout.createSequentialGroup()
+        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+          .addGroup(javax.swing.GroupLayout.Alignment.LEADING, mainPanelLayout.createSequentialGroup()
+            .addComponent(outputPathLabel)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(outputPathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-          .addGroup(jPanel1Layout.createSequentialGroup()
-            .addComponent(jLabel1)
+            .addComponent(generateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+          .addGroup(mainPanelLayout.createSequentialGroup()
+            .addComponent(templateLabel)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-          .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(templateComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+          .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addGap(0, 17, Short.MAX_VALUE))
     );
-    jPanel1Layout.setVerticalGroup(
-      jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(jPanel1Layout.createSequentialGroup()
-        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(jLabel1))
+    mainPanelLayout.setVerticalGroup(
+      mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(mainPanelLayout.createSequentialGroup()
+        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(templateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(templateLabel))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(jLabel2)
-          .addComponent(jButton2))
+        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(outputPathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(outputPathLabel)
+          .addComponent(generateButton))
         .addGap(1, 1, 1))
     );
 
@@ -128,39 +129,40 @@ public class DocBuilderUI extends javax.swing.JFrame {
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
         .addContainerGap()
-        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addContainerGap())
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    // TODO add your handling code here:
-    DocBuilder db = new DocBuilder();
-    TableModel m = this.jTable1.getModel();
-    HashMap<String, String> values = new HashMap<String, String>();
+  private void generateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateButtonActionPerformed
+    TableModel m = this.templateValuesTable.getModel();
+    HashMap<String, String> templateValues = new HashMap<String, String>();
     
     for (int i = 0; i < m.getRowCount(); i++)
     {
-      values.put(m.getValueAt(i, 0).toString(), m.getValueAt(i, 1).toString());
+      templateValues.put(m.getValueAt(i, 0).toString(), m.getValueAt(i, 1).toString());
     }
     
-    db.CreateDocument((Template)jComboBox1.getSelectedItem(), values, jTextField1.getText());
-  }//GEN-LAST:event_jButton2ActionPerformed
+    DocBuilder db = new DocBuilder();
+    db.CreateDocument((Template)templateComboBox.getSelectedItem(), templateValues, outputPathTextField.getText());
+    
+    JOptionPane.showMessageDialog(this, "Documento criado com sucesso em: \n\n" + outputPathTextField.getText());
+  }//GEN-LAST:event_generateButtonActionPerformed
 
   private void OnTemplateChanged(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OnTemplateChanged
-    this.CreateValues();
+    this.createDefaultValues();
   }//GEN-LAST:event_OnTemplateChanged
 
   private void OnWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_OnWindowOpened
-    this.CreateValues();
+    this.createDefaultValues();
   }//GEN-LAST:event_OnWindowOpened
 
   /**
@@ -198,32 +200,11 @@ public class DocBuilderUI extends javax.swing.JFrame {
     });
   }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JButton jButton2;
-  private javax.swing.JComboBox jComboBox1;
-  private javax.swing.JLabel jLabel1;
-  private javax.swing.JLabel jLabel2;
-  private javax.swing.JPanel jPanel1;
-  private javax.swing.JScrollPane jScrollPane2;
-  private javax.swing.JTable jTable1;
-  private javax.swing.JTextField jTextField1;
-  // End of variables declaration//GEN-END:variables
-
-  private static TableModel toTableModel(Map<?,?> map) {
-    DefaultTableModel model = new DefaultTableModel(
-        new Object[] { "Campo", "Valor" }, 0
-    );
-    for (Map.Entry<?,?> entry : map.entrySet()) {
-        model.addRow(new Object[] { entry.getKey(), entry.getValue() });
-    }
-    return model;
-  }
-  
-  private void CreateValues()
+  private void createDefaultValues()
   {
     Map<String, String> values = new LinkedHashMap<String, String>();
     
-    switch((Template)jComboBox1.getSelectedItem())
+    switch((Template)templateComboBox.getSelectedItem())
     {
       case Contract:
         values.put("#local#", "Porto Alegre");
@@ -254,6 +235,33 @@ public class DocBuilderUI extends javax.swing.JFrame {
         break;
     }
     
-    this.jTable1.setModel(toTableModel(values));    
+    this.templateValuesTable.setModel(toTableModel(values));    
   }
+    
+  private static TableModel toTableModel(Map<?,?> map) {
+    DefaultTableModel model = new DefaultTableModel(
+        new Object[] { "Campo", "Valor" }, 0
+    ) {
+      @Override
+      public boolean isCellEditable(int row, int column)
+      {
+        return column == 1;
+      }
+    };
+    for (Map.Entry<?,?> entry : map.entrySet()) {
+        model.addRow(new Object[] { entry.getKey(), entry.getValue() });
+    }
+    return model;
+  }
+
+  // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JButton generateButton;
+  private javax.swing.JPanel mainPanel;
+  private javax.swing.JLabel outputPathLabel;
+  private javax.swing.JTextField outputPathTextField;
+  private javax.swing.JScrollPane tableScrollPane;
+  private javax.swing.JComboBox templateComboBox;
+  private javax.swing.JLabel templateLabel;
+  private javax.swing.JTable templateValuesTable;
+  // End of variables declaration//GEN-END:variables
 }

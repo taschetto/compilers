@@ -6,8 +6,6 @@
 
 package docbuilder;
 
-import oracle.jrockit.jfr.tools.ConCatRepository;
-
 /**
  *
  * @author Guilherme Taschetto

@@ -76,7 +76,7 @@ import java.util.Map;
         c.add(Calendar.MONTH, 1);
         Date d = c.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        r += "[" + (i + 1) + "] " + sdf.format(d) + " ";
+        r += " " + (i + 1) + ". " + sdf.format(d) + "\\par";
   	  }
     }
 
