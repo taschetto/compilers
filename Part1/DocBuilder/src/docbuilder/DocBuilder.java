@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class DocBuilder
 {
-  public void CreateDocument(Template template, Map<String, String> values, String outputPath)
+  public void CreateDocument(Template template, Map<String, String> values, String outputPath) throws Exception
   {
     String inputPath = "resources/";
     int initialState = Yylex.YYINITIAL;              
@@ -43,26 +43,19 @@ public class DocBuilder
         initialState = Yylex.CERTIFICATE;
         break;
     }
-      
-    try {
-      InputStream istream = getClass().getResourceAsStream(inputPath);
-      Reader reader = new java.io.InputStreamReader(istream, "UTF-8");
-      
-      Path pathToFile = Paths.get(outputPath);
-      Files.createDirectories(pathToFile.getParent());
+     
+    InputStream istream = getClass().getResourceAsStream(inputPath);
+    Reader reader = new java.io.InputStreamReader(istream, "UTF-8");
 
-      BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath));
+    Path pathToFile = Paths.get(outputPath);
+    Files.createDirectories(pathToFile.getParent());
 
-      Yylex scanner = new Yylex(reader, writer, values);
-      scanner.yybegin(initialState);
-      scanner.yylex();
-      
-      writer.close();
-    }
-    catch (Exception e) {
-      System.out.println("Unexpected exception:");
-      System.out.println(e.getMessage());
-      e.printStackTrace();
-    }
+    BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath));
+
+    Yylex scanner = new Yylex(reader, writer, values);
+    scanner.yybegin(initialState);
+    scanner.yylex();
+
+    writer.close();
   }
 }

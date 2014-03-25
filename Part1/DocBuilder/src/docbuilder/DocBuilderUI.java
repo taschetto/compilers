@@ -151,9 +151,15 @@ public class DocBuilderUI extends javax.swing.JFrame {
     }
     
     DocBuilder db = new DocBuilder();
-    db.CreateDocument((Template)templateComboBox.getSelectedItem(), templateValues, outputPathTextField.getText());
-    
-    JOptionPane.showMessageDialog(this, "Documento criado com sucesso em: \n\n" + outputPathTextField.getText());
+    try
+    {
+      db.CreateDocument((Template)templateComboBox.getSelectedItem(), templateValues, outputPathTextField.getText());
+      JOptionPane.showMessageDialog(this, "Documento criado com sucesso em: \n\n" + outputPathTextField.getText(), "DocBuilder", JOptionPane.INFORMATION_MESSAGE);
+    }
+    catch (Exception e)
+    {
+      JOptionPane.showMessageDialog(this, "Nao foi possivel gerar o arquivo de saida. Verifique se o \ndiretorio informado existe e se voce possui permissoes de escrita.", "DocBuilder", JOptionPane.ERROR_MESSAGE);
+    }
   }//GEN-LAST:event_generateButtonActionPerformed
 
   private void OnTemplateChanged(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OnTemplateChanged
