@@ -1,0 +1,27 @@
+Classe -> public class IDENT { ListaDeclaracoes }
+
+ListaDeclaracoes -> ListaAtributos Construtor ListaMetodos
+
+ListaAtributos -> Atributo ListaAtributos
+               |  vazio
+
+Atributo -> private Argumento;
+
+Argumento -> Tipo IDENT
+
+Tipo -> int | double | String;
+
+Construtor -> public IDENT ( ListaArgumentos ) { ListaComandos }
+
+ListaArgumentos -> vazio
+                |  Argumento 
+                |  Argumento, ListaArgumentos
+
+
+ListaComandos -> Comando ListaComandos
+              |  vazio
+
+ListaMetodos -> Metodo ListaMetodos
+             |  vazio
+
+Metodo -> private void IDENT (ListaArgumentos) { ListaComandos }
