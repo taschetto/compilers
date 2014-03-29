@@ -52,5 +52,6 @@ Considerações:
 * Todos os atributos são declarados antes dos métodos e são privativos
 * Todos os métodos são publicos e retornam void
 * As expressões aceitam apenas os operadores “=”, “>”, “+” e “*”
+* O construtor é opcional
 * Criar uma tabela de identificadores (somente nome do identificador e linha onde foi ocorreu pela primeira vez)
 * Ao final do reconhecimento léxico a tabela de identificadores deve ser apresentada
