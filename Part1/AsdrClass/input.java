@@ -1,12 +1,20 @@
-public class Xyz
+public class Pessoa
 {
-  private int x;
-  private double y;
-  private String z;
+  private int idade;
+  private String nome;
+  private double salario;
 
-  public Xyz() { }
+  public Pessoa(String nome, int idade)
+  {
+    this.nome = ;
+    this.idade = ;
+  }
 
-  public void method1() { }
-  public void method2(int x) { }
-  public void method3(int x, double y) { }
+  public void dummy(double param)
+  {
+    for(;;) { 
+      if () break;
+    }
+    return;
+  }
 }

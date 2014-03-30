@@ -271,16 +271,16 @@ public class AsdrClass {
 
   private void ParameterList()
   {
-    if (laToken == INT || laToken == DOUBLE || laToken == STRING)
+    if (laToken == CLOSEPAR)
+    {
+      if (debug) System.out.println("ParameterList -> empty");
+    }
+    else
     {
       if (debug) System.out.println("ParameterList -> Type IDENT Parameter");
       Type();
       check(IDENT);
       Parameter();    
-    }
-    else
-    {
-      if (debug) System.out.println("ParameterList -> empty");
     }
   }
 
@@ -302,15 +302,15 @@ public class AsdrClass {
 
   private void CommandList()
   {
-    if (laToken == IDENT)
+    if (laToken == CLOSEBRACE)
+    {
+      if (debug) System.out.println("CommandList -> empty");
+    }
+    else
     {
       if (debug) System.out.println("CommandList -> Command CommandList");
       Command();
       CommandList();
-    }
-    else
-    {
-      if (debug) System.out.println("CommandList -> empty");
     }
   }
 
