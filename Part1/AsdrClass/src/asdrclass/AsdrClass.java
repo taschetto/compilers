@@ -34,17 +34,16 @@ public class AsdrClass {
   public static final int COLON = 314;
   public static final int THIS = 315;
   public static final int DOT = 316;
-  public static final int EQ = 317;
-  public static final int PLUS = 318;
-  public static final int MINUS = 319;
+  public static final int ASSIGN = 317;
+  public static final int EQ = 318;
+  public static final int PLUS = 319;
   public static final int TIMES = 320;
-  public static final int DIVIDED = 321;
-  public static final int GREATER = 322;
-  public static final int SMALLER = 323;
-  public static final int FOR = 324;
-  public static final int RETURN = 325;
-  public static final int IF = 326;
-  public static final int BREAK = 327;
+  public static final int GREATER = 321;
+  public static final int FOR = 322;
+  public static final int RETURN = 323;
+  public static final int IF = 324;
+  public static final int BREAK = 325;
+  public static final int NUM = 326;
 
   public static final String tokenList[] = {"PUBLIC",
                                             "PRIVATE",
@@ -62,17 +61,16 @@ public class AsdrClass {
                                             "COLON",
                                             "THIS",
                                             "DOT",
+                                            "ASSIGN",
                                             "EQ",
                                             "PLUS",
-                                            "MINUS",
                                             "TIMES",
-                                            "DIVIDED",
                                             "GREATER",
-                                            "SMALLER",
                                             "FOR",
                                             "RETURN",
                                             "IF",
                                             "BREAK",
+                                            "NUM",
                                              };
   
   /* referencia ao objeto Scanner gerado pelo JFLEX */
@@ -224,7 +222,7 @@ public class AsdrClass {
     }
     else
     {
-      yyerror("Expected integer, double or String");
+      yyerror("Expected INT, DOUBLE or STRING.");
     }
   }
 
@@ -322,16 +320,16 @@ public class AsdrClass {
       check(THIS);
       check(DOT);
       check(IDENT);
-      check(EQ);
-      //Expression();
+      check(ASSIGN);
+      Expression();
       check(SEMICOLON);
     }
     else if (laToken == IDENT)
     {
       if (debug) System.out.println("Command -> IDENT = Expression;");
       check(IDENT);
-      check(EQ);
-      //Expression();
+      check(ASSIGN);
+      Expression();
       check(SEMICOLON);
     }
     else if (laToken == FOR)
@@ -351,7 +349,7 @@ public class AsdrClass {
       if (debug) System.out.println("Command -> if (Expression) Command");
       check(IF);
       check(OPENPAR);
-      //Expression();
+      Expression();
       check(CLOSEPAR);
       Command();
     }
@@ -370,6 +368,97 @@ public class AsdrClass {
     else
     {
       yyerror("Invalid command.");
+    }
+  }
+
+  private void Expression()
+  {
+    if (debug) System.out.println("Expression -> T R");
+    T();
+    R();
+  }
+
+  private void R()
+  {
+    if (laToken == GREATER)
+    {
+      if (debug) System.out.println("R -> > T R");
+      check(GREATER);
+      T();
+      R();
+    }
+    else if (laToken == EQ)
+    {
+      if (debug) System.out.println("R -> == T R");
+      check(EQ);
+      T();
+      R();
+    }
+    else
+    {
+      if (debug) System.out.println("R -> empty");
+    }
+  }
+
+  private void T()
+  {
+    if (debug) System.out.println("T -> F S");
+    F();
+    S();
+  }
+
+  private void S()
+  {
+    if (laToken == PLUS)
+    {
+      if (debug) System.out.println("S -> + F S");
+      check(PLUS);
+      F();
+      S();
+    }
+    else
+    {
+      if (debug) System.out.println("S -> empty");
+    }
+  }
+
+  private void F()
+  {
+    if (debug) System.out.println("F -> G U");
+    G();
+    U();
+  }
+
+  private void G()
+  {
+    if (laToken == IDENT)
+    {
+      if (debug) System.out.println("G -> IDENT");
+      check(IDENT);
+    }
+    else if (laToken == NUM)
+    {
+      if (debug) System.out.println("G -> NUM");
+      check(NUM);
+    }
+    else
+    {
+      yyerror("Expected IDENT or NUM.");
+    }
+  }
+
+  private void U()
+  {
+    if (laToken == TIMES)
+    {
+      if (debug) System.out.println("U -> * G U");
+      check(TIMES);
+      G();
+      U();
+    }
+    else
+    {
+      if (debug) System.out.println("U -> empty");
     }
   }
 }

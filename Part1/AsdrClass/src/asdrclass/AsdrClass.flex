@@ -50,6 +50,7 @@ WHITE_SPACE_CHAR=[\n\r\ \t\b\012]
   "break"       { return AsdrClass.BREAK; }
 
   {Identifier}  { return AsdrClass.IDENT; }
+  [0-9]+        { return AsdrClass.NUM; }
 
   "{"           { return AsdrClass.OPENBRACE; }
   "}"           { return AsdrClass.CLOSEBRACE; }
@@ -58,14 +59,13 @@ WHITE_SPACE_CHAR=[\n\r\ \t\b\012]
   ")"           { return AsdrClass.CLOSEPAR; }
   ","           { return AsdrClass.COLON; }
   "."           { return AsdrClass.DOT; }
-  "="           { return AsdrClass.EQ; }
+  "="           { return AsdrClass.ASSIGN; }
+  "=="          { return AsdrClass.EQ; }
   "+"           { return AsdrClass.PLUS; }
-  "-"           { return AsdrClass.MINUS; }
-  "*"           { return AsdrClass.TIMES; }
-  "/"           { return AsdrClass.DIVIDED; }
   ">"           { return AsdrClass.GREATER; }
-  "<"           { return AsdrClass.SMALLER; }
+  "*"           { return AsdrClass.TIMES; }
 
   {WHITE_SPACE_CHAR}+ { }
+  "//".*        { }
   .             { System.out.println("Lexical error - invalid character: <" + yytext() + ">"); }
 }

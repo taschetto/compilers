@@ -6,14 +6,15 @@ public class Pessoa
 
   public Pessoa(String nome, int idade)
   {
-    this.nome = ;
-    this.idade = ;
+    this.nome = nome;
+    this.idade = idade + 5 * 3;
   }
 
   public void dummy(double param)
   {
-    for(;;) { 
-      if () break;
+    for(;;) {
+      // processamento 
+      if (a > b == c) break;
     }
     return;
   }
