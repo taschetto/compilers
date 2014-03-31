@@ -115,8 +115,8 @@ public class AsdrClass {
       laStr = ((laToken < BASE_TOKEN_NUM ) ? new Character((char)laToken).toString() : tokenList[laToken-BASE_TOKEN_NUM]);
 
       yyerror("Expected token '" + expStr + "' but found '" + laStr + "' instead.");
-     }
-   }
+    }
+  }
   
 /**
    * Runs the scanner on input files.
@@ -129,8 +129,8 @@ public class AsdrClass {
    *               the scanner on.
    */
   public static void main(String[] args) {
-     AsdrClass parser = null;
-     try {
+    AsdrClass parser = null;
+    try {
       Map<String, Integer> identMap = new HashMap<String, Integer>();    
 
       if (args.length == 0)
@@ -143,7 +143,6 @@ public class AsdrClass {
       }
 
       laToken = parser.yylex();          
-
       parser.Class();
 
       if (laToken== Yylex.YYEOF)
