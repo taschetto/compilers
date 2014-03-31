@@ -1,6 +1,6 @@
 /*
-  User Code
-*/
+ * Copyright (c) 2014 Guilherme Taschetto & Fernando Delazeri
+ */
 
 package docbuilder;
 

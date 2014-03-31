@@ -1,6 +1,6 @@
 /*
-  User Code
-*/
+ * Copyright 2014 (c) Guilherme Taschetto & Fernando Delazeri
+ */
 
 package asdrclass;
 import java.util.Map;

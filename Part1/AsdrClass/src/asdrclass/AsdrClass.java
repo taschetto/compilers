@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2014 (c) Guilherme Taschetto & Fernando Delazeri
  */
 
 package asdrclass;
@@ -13,10 +11,6 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-/**
- *
- * @author guilherme
- */
 public class AsdrClass {
   
   private static final int BASE_TOKEN_NUM = 301;
