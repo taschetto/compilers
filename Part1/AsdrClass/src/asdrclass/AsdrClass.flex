@@ -3,6 +3,7 @@
 */
 
 package asdrclass;
+import java.util.Map;
 
 %%
 
@@ -16,12 +17,22 @@ package asdrclass;
 
 %{
   private int comment_count = 0;
-
   private AsdrClass yyparser;
+  private Map<String, Integer> identMap;
 
-  public Yylex(java.io.Reader r, AsdrClass yyparser) {
+  public Yylex(java.io.Reader r, AsdrClass yyparser, Map<String, Integer> identMap) {
     this(r);
     this.yyparser = yyparser;
+    this.identMap = identMap;
+  }
+
+  private void RegisterIdentifier()
+  {
+    String ident = yytext();
+    if (this.identMap.get(ident) == null)
+    {
+      this.identMap.put(ident, yyline);
+    }
   }
 %}
 
@@ -48,10 +59,6 @@ WHITE_SPACE_CHAR=[\n\r\ \t\b\012]
   "return"      { return AsdrClass.RETURN; }
   "if"          { return AsdrClass.IF; }
   "break"       { return AsdrClass.BREAK; }
-
-  {Identifier}  { return AsdrClass.IDENT; }
-  [0-9]+        { return AsdrClass.NUM; }
-
   "{"           { return AsdrClass.OPENBRACE; }
   "}"           { return AsdrClass.CLOSEBRACE; }
   ";"           { return AsdrClass.SEMICOLON; }
@@ -64,6 +71,11 @@ WHITE_SPACE_CHAR=[\n\r\ \t\b\012]
   "+"           { return AsdrClass.PLUS; }
   ">"           { return AsdrClass.GREATER; }
   "*"           { return AsdrClass.TIMES; }
+  {Identifier}  {
+                  this.RegisterIdentifier();
+                  return AsdrClass.IDENT;
+                }
+  [0-9]+        { return AsdrClass.NUM; }
 
   {WHITE_SPACE_CHAR}+ { }
   "//".*        { }

@@ -9,6 +9,9 @@ package asdrclass;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 /**
  *
@@ -75,13 +78,12 @@ public class AsdrClass {
   
   /* referencia ao objeto Scanner gerado pelo JFLEX */
   private Yylex lexer;
-
   private static int laToken;
   private boolean debug = true;
   
-  public AsdrClass(Reader r)
+  public AsdrClass(Reader r, Map<String, Integer> identMap)
   {
-      lexer = new Yylex (r, this);
+    lexer = new Yylex (r, this, identMap);
   }
   
   /* metodo de acesso ao Scanner gerado pelo JFLEX */
@@ -129,13 +131,15 @@ public class AsdrClass {
   public static void main(String[] args) {
      AsdrClass parser = null;
      try {
+      Map<String, Integer> identMap = new HashMap<String, Integer>();    
+
       if (args.length == 0)
       {
-        parser = new AsdrClass(new InputStreamReader(System.in));
+        parser = new AsdrClass(new InputStreamReader(System.in), identMap);
       }
       else
       {
-        parser = new AsdrClass(new java.io.FileReader(args[0]));
+        parser = new AsdrClass(new java.io.FileReader(args[0]), identMap);
       }
 
       laToken = parser.yylex();          
@@ -144,7 +148,16 @@ public class AsdrClass {
 
       if (laToken== Yylex.YYEOF)
       {
-        System.out.println("*** Syntax OK  ***");
+        System.out.println("\n*** Syntax OK  ***");
+        System.out.println("\n*** Identifier Table ***\nIdentifier\tLine #");
+
+        for (Entry<String, Integer> entry : identMap.entrySet())
+        {
+          String ident = entry.getKey();
+          int line = entry.getValue();
+
+          System.out.println(ident + "\t\t" + line);
+        }
       }
       else     
       {
