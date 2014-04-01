@@ -6,7 +6,9 @@ Parte 1 do trabalho prático da disciplina de Compiladores da PUCRS (semestre 20
 
 ## Dependências
 
-O Makefile distribuído com os projetos utiliza a ferramenta Apache Ant(TM) para compilação simplificada por linha de comando. Caso não possua, instale-o com `sudo apt-get install ant` ou **utilize a IDE do Netbeans para realizar a compilação**.
+Ambos os projetos foram criados utilizando a IDE Java Netbeans. A verificação do código e compilação pode ser feita utilizando esta IDE.
+
+Alternativamente, um `Makefile` é distribuído com os projetos. Este `Makefile` utiliza a ferramenta [Apache Ant(TM)](http://ant.apache.org/) para compilação por linha de comando. Caso não possua o `ant`, instale-o com `sudo apt-get install ant` ou **utilize a IDE do Netbeans para realizar a compilação**.
 
 ## Compilação
 
@@ -44,7 +46,62 @@ Para limpar o diretório:
 
 O arquivo de entrada é opcional. Ao não informá-lo o ASDR utilizará o stream de entrada.
 
-**Observação importante**: O analisador sintático exige um construtor na classe. Esta implementação foi além da definição inicial do projeto, onde o reconhecimento do construtor foi dado como opcional.
+#### Gramática verificada pelo ASDR
+
+            Class -> public class IDENT { Declarations }
+      
+     Declarations -> AtributeList Constructor MethodList
+      
+     AtributeList -> Atribute AtributeList
+                  |  empty
+      
+         Atribute -> private Type IDENT;
+      
+             Type -> INT | DOUBLE | STRING;
+             
+      Constructor -> public IDENT(ParameterList) { CommandList }
+      
+       MethodList -> Method MethodList
+                  |  empty
+                  
+           Method -> public void IDENT(ParameterList) { CommandList }
+      
+    ParameterList -> Type IDENT Parameter
+                  |  empty
+      
+        Parameter -> , Type IDENT Parameter
+                  |  empty
+      
+      CommandList -> Command CommandList
+                  | empty
+      
+          Command -> THIS.IDENT = Expression;
+                  |  IDENT = Expression;
+                  |  for (;;) { CommandList }
+                  |  if (Expression) Command
+                  |  break;
+                  |  return;
+      
+       Expression -> T R
+      
+                R -> > T R
+                  |  == T R
+                  |  empty
+      
+                T -> F S
+      
+                S -> + F S
+                  |  empty
+      
+                F -> G U
+      
+                U -> * G U | empty
+                
+                G -> IDENT | NUM
+
+#### Observações
+
+O analisador sintático exige um construtor na classe. Esta implementação foi além da definição inicial do projeto, onde o reconhecimento do construtor foi dado como opcional.
 
 Exemplo de entrada aceita pelo analisador:
 
