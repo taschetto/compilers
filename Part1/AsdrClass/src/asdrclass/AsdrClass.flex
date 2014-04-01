@@ -1,5 +1,7 @@
 /*
- * Copyright 2014 (c) Guilherme Taschetto & Fernando Delazeri
+ * Copyright 2014 (c)
+ *   Guilherme Taschetto (gtaschetto@gmail.com)
+ *   Fernando Delazeri (fernando.delazeri@acad.pucrs.br)
  */
 
 package asdrclass;

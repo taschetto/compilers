@@ -1,5 +1,7 @@
 /*
- * Copyright (c) 2014 Guilherme Taschetto & Fernando Delazeri
+ * Copyright (c) 2014
+ *   Guilherme Taschetto (gtaschetto@gmail.com)
+ *   Fernando Delazeri (fernando.delazeri@acad.pucrs.br)
  */
 
 package docbuilder;
