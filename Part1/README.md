@@ -2,7 +2,9 @@
 
 Parte 1 do trabalho prático da disciplina de Compiladores da PUCRS (semestre 2014/1), ministrada pelo professor Alexandre Agustini.
 
-**Copyright (c) 2014 Guilherme Taschetto (gtaschetto@gmail.com) Fernando Delazeri (fernando.delazeri@acad.pucrs.br)**
+**Copyright (c) 2014**
+**12180247-4 Guilherme Taschetto (gtaschetto@gmail.com)**
+**07104168-5 Fernando Delazeri (panchos3t@gmail.com)**
 
 ## Dependências
 
