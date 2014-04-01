@@ -84,22 +84,24 @@ O arquivo de entrada é opcional. Ao não informá-lo o ASDR utilizará o stream
                   |  break;
                   |  return;
       
-       Expression -> T R
+       Expression -> SumAux Comp
       
-                R -> > T R
-                  |  == T R
+             Comp ->  > SumAux Comp
+                  |  == SumAux Comp
                   |  empty
       
-                T -> F S
+           SumAux -> MultAux Sum
       
-                S -> + F S
+              Sum -> + MultAux Sum
                   |  empty
       
-                F -> G U
+          MultAux -> Value Mult
       
-                U -> * G U | empty
+             Mult -> * Value Mult
+                  |  empty
                 
-                G -> IDENT | NUM
+            Value -> IDENT
+                  |  NUM
 
 #### Observações
 

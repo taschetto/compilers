@@ -382,72 +382,72 @@ public class AsdrClass {
 
   private void Expression()
   {
-    if (debug) System.out.println("Expression -> T R");
-    T();
-    R();
+    if (debug) System.out.println("Expression -> SumAux Comp");
+    SumAux();
+    Comp();
   }
 
-  private void R()
+  private void Comp()
   {
     if (laToken == GREATER)
     {
-      if (debug) System.out.println("R -> > T R");
+      if (debug) System.out.println("Comp -> > SumAux Comp");
       check(GREATER);
-      T();
-      R();
+      SumAux();
+      Comp();
     }
     else if (laToken == EQ)
     {
-      if (debug) System.out.println("R -> == T R");
+      if (debug) System.out.println("Comp -> == SumAux Comp");
       check(EQ);
-      T();
-      R();
+      SumAux();
+      Comp();
     }
     else
     {
-      if (debug) System.out.println("R -> empty");
+      if (debug) System.out.println("Comp -> empty");
     }
   }
 
-  private void T()
+  private void SumAux()
   {
-    if (debug) System.out.println("T -> F S");
-    F();
-    S();
+    if (debug) System.out.println("SumAux -> MultAux Sum");
+    MultAux();
+    Sum();
   }
 
-  private void S()
+  private void Sum()
   {
     if (laToken == PLUS)
     {
-      if (debug) System.out.println("S -> + F S");
+      if (debug) System.out.println("Sum -> + MultAux Sum");
       check(PLUS);
-      F();
-      S();
+      MultAux();
+      Sum();
     }
     else
     {
-      if (debug) System.out.println("S -> empty");
+      if (debug) System.out.println("Sum -> empty");
     }
   }
 
-  private void F()
+  private void MultAux()
   {
-    if (debug) System.out.println("F -> G U");
-    G();
-    U();
+    if (debug) System.out.println("MultAux -> Value Mult");
+    Value();
+    Mult();
   }
 
-  private void G()
+  private void Value()
   {
     if (laToken == IDENT)
     {
-      if (debug) System.out.println("G -> IDENT");
+      if (debug) System.out.println("Value -> IDENT");
       check(IDENT);
     }
     else if (laToken == NUM)
     {
-      if (debug) System.out.println("G -> NUM");
+      if (debug) System.out.println("Value -> NUM");
       check(NUM);
     }
     else
@@ -456,18 +456,18 @@ public class AsdrClass {
     }
   }
 
-  private void U()
+  private void Mult()
   {
     if (laToken == TIMES)
     {
-      if (debug) System.out.println("U -> * G U");
+      if (debug) System.out.println("Mult -> * Value Mult");
       check(TIMES);
-      G();
-      U();
+      Value();
+      Mult();
     }
     else
     {
-      if (debug) System.out.println("U -> empty");
+      if (debug) System.out.println("Mult -> empty");
     }
   }
 }
