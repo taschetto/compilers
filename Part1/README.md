@@ -2,11 +2,15 @@
 
 Parte 1 do trabalho prático da disciplina de Compiladores da PUCRS (semestre 2014/1), ministrada pelo professor Alexandre Agustini.
 
-**Copyright (c) 2014 Guilherme Taschetto & Fernando Delazeri**
+**Copyright (c) 2014 Guilherme Taschetto (gtaschetto@gmail.com) Fernando Delazeri (fernando.delazeri@acad.pucrs.br)**
+
+## Dependências
+
+O Makefile distribuído com os projetos utiliza a ferramenta Apache Ant(TM) para compilação simplificada por linha de comando. Caso não possua, instale-o com `sudo apt-get install ant` ou **utilize a IDE do Netbeans para realizar a compilação**.
 
 ## Compilação
 
-Esta distribuição consta com dois diretórios, `AsdrClass` e `DocBuilders`, cada um contendo um exercício do projeto. Além disto, cada um destes diretórios possui um [Makefile*](#dependencias) com a seguinte sintaxe de uso:
+Esta distribuição consta com dois diretórios, `AsdrClass` e `DocBuilder`, cada um contendo um exercício do projeto. Além disto, cada um destes diretórios possui um `Makefile` com a seguinte sintaxe de uso:
 
 Para gerar o analisador léxico baseado na especificação FLEX e compilar o projeto Java:
 
@@ -24,8 +28,6 @@ Para limpar o diretório:
 
     make clean
     
-<a name="dependencias"></a>**Dependências**: O Makefile dos projetos depende da ferramenta Apache Ant(TM) para compilar os projetos. Caso não possua, instale-o com `sudo apt-get install ant` ou utilize a IDE do Netbeans para realizar a compilação.    
-
 ## Execução
 
 ### DocBuilder
@@ -40,4 +42,4 @@ Para limpar o diretório:
     make
     java -jar dist/AsdrClass.jar [arquivo de entrada]
 
-Sendo o arquivo de entrada opcional (ao não informá-lo o ASDR utilizará o stream de entrada).
+O arquivo de entrada opcional. Ao não informá-lo o ASDR utilizará o stream de entrada.
