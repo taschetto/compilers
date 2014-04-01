@@ -42,4 +42,30 @@ Para limpar o diretório:
     make
     java -jar dist/AsdrClass.jar [arquivo de entrada]
 
-O arquivo de entrada opcional. Ao não informá-lo o ASDR utilizará o stream de entrada.
+O arquivo de entrada é opcional. Ao não informá-lo o ASDR utilizará o stream de entrada.
+
+**Observação importante**: O analisador sintático exige um construtor na classe. Esta implementação foi além da definição inicial do projeto, onde o reconhecimento do construtor foi dado como opcional.
+
+Exemplo de entrada aceita pelo analisador:
+
+    public class Pessoa
+    {
+      private int idade;
+      private String nome;
+      private double salario;
+      
+      public Pessoa (String nome, int idade )
+      {
+        this.nome = nome;
+        this.idade= idade + 5 * 3 ;
+      }
+      
+      private void dummy(double param)
+      {
+        for(;;) { 
+          // processamento
+          if (a>b) break;
+        }
+        return;
+      }
+    }
