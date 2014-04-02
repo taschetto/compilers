@@ -61,11 +61,11 @@ WHITE_SPACE_CHAR=[\n\r\ \t\b\012]
   "return"      { return AsdrClass.RETURN; }
   "if"          { return AsdrClass.IF; }
   "break"       { return AsdrClass.BREAK; }
-  "{"           { return AsdrClass.OPENBRACE; }
-  "}"           { return AsdrClass.CLOSEBRACE; }
+  "{"           { return AsdrClass.LBRACE; }
+  "}"           { return AsdrClass.RBRACE; }
   ";"           { return AsdrClass.SEMICOLON; }
-  "("           { return AsdrClass.OPENPAR; }
-  ")"           { return AsdrClass.CLOSEPAR; }
+  "("           { return AsdrClass.LPAR; }
+  ")"           { return AsdrClass.RPAR; }
   ","           { return AsdrClass.COLON; }
   "."           { return AsdrClass.DOT; }
   "="           { return AsdrClass.ASSIGN; }

@@ -25,12 +25,12 @@ public class AsdrClass {
   public static final int DOUBLE = 305;
   public static final int STRING = 306;
   public static final int IDENT = 307;
-  public static final int OPENBRACE = 308;
-  public static final int CLOSEBRACE = 309;
+  public static final int LBRACE = 308;
+  public static final int RBRACE = 309;
   public static final int SEMICOLON = 310;
   public static final int VOID = 311;
-  public static final int OPENPAR = 312;
-  public static final int CLOSEPAR = 313;
+  public static final int LPAR = 312;
+  public static final int RPAR = 313;
   public static final int COLON = 314;
   public static final int THIS = 315;
   public static final int DOT = 316;
@@ -52,12 +52,12 @@ public class AsdrClass {
                                             "DOUBLE",
                                             "STRING",
                                             "IDENT",
-                                            "OPENBRACE",
-                                            "CLOSEBRACE",
+                                            "LBRACE",
+                                            "RBRACE",
                                             "SEMICOLON",
                                             "VOID",
-                                            "OPENPAR",
-                                            "CLOSEPAR",
+                                            "LPAR",
+                                            "RPAR",
                                             "COLON",
                                             "THIS",
                                             "DOT",
@@ -176,9 +176,9 @@ public class AsdrClass {
     check(PUBLIC);
     check(CLASS);
     check(IDENT);
-    check(OPENBRACE);
+    check(LBRACE);
     Declarations();
-    check(CLOSEBRACE);
+    check(RBRACE);
   }
 
   private void Declarations()
@@ -237,15 +237,21 @@ public class AsdrClass {
 
   private void Constructor()
   {
-    if (debug) System.out.println("Constructor -> public IDENT(ParameterList) { CommandList }");
+    if (debug) System.out.println("Constructor -> public IDENT(ParameterList) Block");
     check(PUBLIC);
     check(IDENT);
-    check(OPENPAR);
+    check(LPAR);
     ParameterList();
-    check(CLOSEPAR);
-    check(OPENBRACE);
+    check(RPAR);
+    Block();
+  }
+  
+  private void Block()
+  {
+    if (debug) System.out.println("Block -> { CommandList }");
+    check(LBRACE);
     CommandList();
-    check(CLOSEBRACE);
+    check(RBRACE);
   }
 
   private void MethodList()
@@ -264,21 +270,19 @@ public class AsdrClass {
 
   private void Method()
   {
-    if (debug) System.out.println("Method -> public void IDENT(ParameterList) { CommandList }");
+    if (debug) System.out.println("Method -> public void IDENT(ParameterList) Block");
     check(PUBLIC);
     check(VOID);
     check(IDENT);
-    check(OPENPAR);
+    check(LPAR);
     ParameterList();
-    check(CLOSEPAR);
-    check(OPENBRACE);
-    CommandList();
-    check(CLOSEBRACE);
+    check(RPAR);
+    Block();
   }
 
   private void ParameterList()
   {
-    if (laToken == CLOSEPAR)
+    if (laToken == RPAR)
     {
       if (debug) System.out.println("ParameterList -> empty");
     }
@@ -309,7 +313,7 @@ public class AsdrClass {
 
   private void CommandList()
   {
-    if (laToken == CLOSEBRACE)
+    if (laToken == RBRACE)
     {
       if (debug) System.out.println("CommandList -> empty");
     }
@@ -343,23 +347,21 @@ public class AsdrClass {
     }
     else if (laToken == FOR)
     {
-      if (debug) System.out.println("Command -> for (;;) { CommandList }");
+      if (debug) System.out.println("Command -> for (;;) Block");
       check(FOR);
-      check(OPENPAR);
+      check(LPAR);
       check(SEMICOLON);
       check(SEMICOLON);
-      check(CLOSEPAR);
-      check(OPENBRACE);
-      CommandList();
-      check(CLOSEBRACE);
+      check(RPAR);
+      Block();
     }
     else if (laToken == IF)
     {
       if (debug) System.out.println("Command -> if (Expression) Command");
       check(IF);
-      check(OPENPAR);
+      check(LPAR);
       Expression();
-      check(CLOSEPAR);
+      check(RPAR);
       Command();
     }
     else if (laToken == BREAK)
@@ -373,6 +375,11 @@ public class AsdrClass {
       if (debug) System.out.println("Command -> return;");
       check(RETURN);
       check(SEMICOLON);
+    }
+    else if (laToken == LBRACE)
+    {
+      if (debug) System.out.println("Command -> Block;");
+      Block();
     }
     else
     {
@@ -440,7 +447,14 @@ public class AsdrClass {
 
   private void Value()
   {
-    if (laToken == IDENT)
+    if (laToken == THIS)
+    {
+      if (debug) System.out.println("Value -> THIS.IDENT");
+      check(THIS);
+      check(DOT);
+      check(IDENT);
+    }
+    else if (laToken == IDENT)
     {
       if (debug) System.out.println("Value -> IDENT");
       check(IDENT);

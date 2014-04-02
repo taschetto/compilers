@@ -794,11 +794,11 @@ class Yylex {
           }
         case 31: break;
         case 4: 
-          { return AsdrClass.OPENBRACE;
+          { return AsdrClass.LBRACE;
           }
         case 32: break;
         case 5: 
-          { return AsdrClass.CLOSEBRACE;
+          { return AsdrClass.RBRACE;
           }
         case 33: break;
         case 6: 
@@ -806,11 +806,11 @@ class Yylex {
           }
         case 34: break;
         case 7: 
-          { return AsdrClass.OPENPAR;
+          { return AsdrClass.LPAR;
           }
         case 35: break;
         case 8: 
-          { return AsdrClass.CLOSEPAR;
+          { return AsdrClass.RPAR;
           }
         case 36: break;
         case 9: 
