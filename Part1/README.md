@@ -105,7 +105,7 @@ O arquivo de entrada é opcional. Ao não informá-lo o ASDR utilizará o stream
 
 #### Observações
 
-O analisador sintático exige um construtor na classe. Esta implementação foi além da definição inicial do projeto, onde o reconhecimento do construtor foi dado como opcional.
+O analisador sintático **exige** um construtor na classe. Esta implementação foi além da definição inicial do projeto, onde o reconhecimento de um construtor não era necessário.
 
 Exemplo de entrada aceita pelo analisador:
 
