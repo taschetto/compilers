@@ -50,64 +50,71 @@ O arquivo de entrada é opcional. Ao não informá-lo o ASDR utilizará o stream
 
 #### Gramática verificada pelo ASDR
 
-            Class -> public class IDENT { Declarations }
+            Class : public class IDENT { Declarations }
       
-     Declarations -> AtributeList Constructor MethodList
+     Declarations : AtributeList Constructor MethodList
       
-     AtributeList -> Atribute AtributeList
-                  |  empty
-      
-         Atribute -> private Type IDENT;
-      
-             Type -> INT | DOUBLE | STRING;
-             
-      Constructor -> public IDENT(ParameterList) { CommandList }
-      
-       MethodList -> Method MethodList
-                  |  empty
-                  
-           Method -> public void IDENT(ParameterList) { CommandList }
-      
-    ParameterList -> Type IDENT Parameter
-                  |  empty
-      
-        Parameter -> , Type IDENT Parameter
-                  |  empty
-      
-      CommandList -> Command CommandList
+     AtributeList : Atribute AtributeList
                   | empty
       
-          Command -> THIS.IDENT = Expression;
-                  |  IDENT = Expression;
-                  |  for (;;) { CommandList }
-                  |  if (Expression) Command
-                  |  break;
-                  |  return;
+         Atribute : private Type IDENT;
       
-       Expression -> SumAux Comp
+             Type : INT | DOUBLE | STRING;
+             
+      Constructor : public IDENT(ParameterList) Block
       
-             Comp ->  > SumAux Comp
-                  |  == SumAux Comp
-                  |  empty
+            Block : { CommandList }
       
-           SumAux -> MultAux Sum
+       MethodList : Method MethodList
+                  | empty
+                  
+           Method : public void IDENT(ParameterList) Block
       
-              Sum -> + MultAux Sum
-                  |  empty
+    ParameterList : Type IDENT Parameter
+                  | empty
       
-          MultAux -> Value Mult
+        Parameter : , Type IDENT Parameter
+                  | empty
       
-             Mult -> * Value Mult
-                  |  empty
+      CommandList : Command CommandList
+                  | empty
+      
+          Command : Block
+                  | IDENT = Expression;
+                  | THIS.IDENT = Expression;
+                  | for (;;) Block
+                  | if (Expression) Command
+                  | break;
+                  | return;
+      
+       Expression : SumAux Comp
+      
+             Comp : > SumAux Comp
+                  | == SumAux Comp
+                  | empty
+      
+           SumAux : MultAux Sum
+      
+              Sum : + MultAux Sum
+                  | empty
+      
+          MultAux : Value Mult
+      
+             Mult : * Value Mult
+                  | empty
                 
-            Value -> IDENT
-                  |  NUM
+            Value : THIS.IDENT
+                  | IDENT
+                  | NUM
 
 #### Observações
 
-O analisador sintático exige um construtor na classe. Esta implementação foi além da definição inicial do projeto, onde o reconhecimento do construtor foi dado como opcional.
+* O analisador sintático **exige** um construtor na classe. Esta implementação foi além da definição inicial do projeto, onde o reconhecimento de um construtor não era necessário.
+* O analisador sintático permite o aninhamento de blocos em qualquer nível, do tipo `{ { { { { Comando } } } } }`.
 
-Exemplo de entrada aceita pelo analisador:
+#### Exemplos de entradas aceitas pelo analisador
+
+Exemplo 1:
 
     public class Pessoa
     {
@@ -129,4 +136,47 @@ Exemplo de entrada aceita pelo analisador:
         }
         return;
       }
+    }
+
+Exemplo 2:
+
+    public class Car
+    {
+      private String manufacturer;
+      private String model;
+      private int year;
+      private int odometer;
+      
+      public Car()
+      {
+      }
+      
+      public void Drive(int kilometers)
+      {
+        this.odometer = this.odometer + kilometers;
+      }
+    }
+
+Exemplo 3:
+
+    public class Foo 
+    {
+      private int bar;
+      
+      public Foo(int bar)
+      {
+        {
+          {
+            {
+              {
+                {
+                  this.bar = bar;
+                }
+              }
+            }
+          }
+        }
+      }
+      
+      public void foobar() {}
     }
