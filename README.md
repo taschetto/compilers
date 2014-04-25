@@ -9,4 +9,6 @@ The Compilers project will be splited into 4 exercises this semester:
 3. Semantic analysis (types)
 4. Code generation
 
+Also, there are a few compilation pipeline [basic exercises](https://github.com/taschetto/compilers/tree/master/exercises).
+
 Copyright (c) 2014 Guilherme Taschetto & Fernando Delazeri
