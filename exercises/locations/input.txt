@@ -1,0 +1,22 @@
+LOCATIONS # lista de locais de interesse 
+PortoAlegre # local. Obs. não são aceitos espaços nos nomes 
+-51.0 # latitude 
+-30.0 # longitude 
+Facin -51.0 -30.0 
+Florianopolis -48.0 -27.0 
+RioJaneiro -43.0 -22.0 
+Montevideo -56.0 -34.0 
+CaboHorn -67.0 -56.0 
+REGIONS # início da declaração de regiões 
+RECT # regiões retangulares a partir daqui 
+MapaMundi -160.0 80.0 160.0 -60.0 
+Tropical -160.0 23.0 160.0 -23.0 
+AmericaSul -80.0 20.0 -40.0 -60.0 
+Brasil -70.0 10.0 -30.0 -40.0 
+RioGrandeSul -48.0 -33.0 -57.0 -27.0 
+Ocidente 0.0 80.0 -160.0 -60.0 
+CIRCLE # regiões circulares 
+GrandePOA -51.0 -30.0 10 # latitude, longitude e raio 
+GroundZero 40 74 0.5
+RECT PUCRS 30.03 51.10 30.0320 51.1055 # outra região retangular 
+END # final da descrição 
