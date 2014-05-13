@@ -1,0 +1,50 @@
+int a;
+int i;
+bool b;
+float x;
+int[10] vet;
+string s;
+string t;
+bool y;
+
+struct Ponto {
+   int x1;
+   int y1;
+
+};
+  
+
+void main() {
+    
+a = 5;
+   b = a + 3;
+   s = "teste";
+
+   t = s + a;
+   b = s > t;
+
+   b = (i>6) && (vet[3]>9);
+
+   b = a > x;
+  
+   if ((vet[ vet[5] + 4 ] > x) && b) i = 1;
+
+   if (s) i = 2;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
