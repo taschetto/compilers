@@ -10,7 +10,7 @@ Parte 2 do trabalho prático da disciplina de Compiladores da PUCRS (semestre 20
 
 Ambos os projetos foram criados utilizando a IDE Java Netbeans. A verificação do código e compilação pode ser feita utilizando esta IDE.
 
-Alternativamente, um `Makefile` é distribuído com o projetos. Este `Makefile` utiliza a ferramenta [Apache Ant(TM)](http://ant.apache.org/) para compilação por linha de comando. Caso não possua o `ant`, instale-o com `sudo apt-get install ant` ou **utilize a IDE do Netbeans para realizar a compilação**.
+Alternativamente, um `Makefile` é distribuído com o projeto. Este `Makefile` utiliza a ferramenta [Apache Ant(TM)](http://ant.apache.org/) para compilação por linha de comando. Caso não possua o `ant`, instale-o com `sudo apt-get install ant` ou **utilize a IDE do Netbeans para realizar a compilação**.
 
 ## Compilação
 
