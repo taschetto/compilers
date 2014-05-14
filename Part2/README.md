@@ -16,7 +16,7 @@ Alternativamente, um `Makefile` é distribuído com o projetos. Este `Makefile` 
 
 Esta distribuição consta com o diretório do projeto `TypeChecker`, contendo, além dos fontes, um `Makefile` com a seguinte sintaxe de uso:
 
-Para gerar o analisador léxico baseado na especificação FLEX, gerar o parser baseado na especificação YACC e compilar o projeto Java:
+Para gerar o analisador léxico baseado na especificação FLEX, gerar o analisador sintático ascendente baseado na especificação YACC e compilar o projeto Java:
 
     make
     
@@ -24,7 +24,7 @@ Para gerar o analisador léxico baseado na especificação FLEX:
 
     make flex
 
-Para gerar o parser ascendente baseado na especificação YACC:
+Para gerar o analisador sintático ascendente baseado na especificação YACC:
 
     make yacc
     
