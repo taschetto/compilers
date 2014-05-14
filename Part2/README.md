@@ -1,6 +1,6 @@
-## Análise Léxica e Analisador Sintático Descendente Recursivo
+## Análise Sintática Ascendente e Verificação Semântica
 
-Parte 1 do trabalho prático da disciplina de Compiladores da PUCRS (semestre 2014/1), ministrada pelo professor Alexandre Agustini.
+Parte 2 do trabalho prático da disciplina de Compiladores da PUCRS (semestre 2014/1), ministrada pelo professor Alexandre Agustini.
 
 **Copyright (c) 2014**
 **12180247-4 Guilherme Taschetto (gtaschetto@gmail.com)**
@@ -10,19 +10,23 @@ Parte 1 do trabalho prático da disciplina de Compiladores da PUCRS (semestre 20
 
 Ambos os projetos foram criados utilizando a IDE Java Netbeans. A verificação do código e compilação pode ser feita utilizando esta IDE.
 
-Alternativamente, um `Makefile` é distribuído com os projetos. Este `Makefile` utiliza a ferramenta [Apache Ant(TM)](http://ant.apache.org/) para compilação por linha de comando. Caso não possua o `ant`, instale-o com `sudo apt-get install ant` ou **utilize a IDE do Netbeans para realizar a compilação**.
+Alternativamente, um `Makefile` é distribuído com o projetos. Este `Makefile` utiliza a ferramenta [Apache Ant(TM)](http://ant.apache.org/) para compilação por linha de comando. Caso não possua o `ant`, instale-o com `sudo apt-get install ant` ou **utilize a IDE do Netbeans para realizar a compilação**.
 
 ## Compilação
 
-Esta distribuição consta com dois diretórios, `AsdrClass` e `DocBuilder`, cada um contendo um exercício do projeto. Além disto, cada um destes diretórios possui um `Makefile` com a seguinte sintaxe de uso:
+Esta distribuição consta com o diretório do projeto `TypeChecker`, contendo, além dos fontes, um `Makefile` com a seguinte sintaxe de uso:
 
-Para gerar o analisador léxico baseado na especificação FLEX e compilar o projeto Java:
+Para gerar o analisador léxico baseado na especificação FLEX, gerar o parser baseado na especificação YACC e compilar o projeto Java:
 
     make
     
 Para gerar o analisador léxico baseado na especificação FLEX:
 
     make flex
+
+Para gerar o parser ascendente baseado na especificação YACC:
+
+    make yacc
     
 Para compilar o projeto Java:
 
@@ -34,149 +38,8 @@ Para limpar o diretório:
     
 ## Execução
 
-### DocBuilder
-
-    cd DocBuilder
+    cd TypeChecker
     make
-    java -jar dist/DocBuilder.jar
+    java -jar dist/TypeChecker.jar [arquivo de entrada]
 
-### AsdrClass
-
-    cd AsdrClass
-    make
-    java -jar dist/AsdrClass.jar [arquivo de entrada]
-
-O arquivo de entrada é opcional. Ao não informá-lo o ASDR utilizará o stream de entrada.
-
-#### Gramática verificada pelo ASDR
-
-            Class : public class IDENT { Declarations }
-      
-     Declarations : AtributeList Constructor MethodList
-      
-     AtributeList : Atribute AtributeList
-                  | empty
-      
-         Atribute : private Type IDENT;
-      
-             Type : INT | DOUBLE | STRING;
-             
-      Constructor : public IDENT(ParameterList) Block
-      
-            Block : { CommandList }
-      
-       MethodList : Method MethodList
-                  | empty
-                  
-           Method : public void IDENT(ParameterList) Block
-      
-    ParameterList : Type IDENT Parameter
-                  | empty
-      
-        Parameter : , Type IDENT Parameter
-                  | empty
-      
-      CommandList : Command CommandList
-                  | empty
-      
-          Command : Block
-                  | IDENT = Expression;
-                  | THIS.IDENT = Expression;
-                  | for (;;) Block
-                  | if (Expression) Command
-                  | break;
-                  | return;
-      
-       Expression : SumAux Comp
-      
-             Comp : > SumAux Comp
-                  | == SumAux Comp
-                  | empty
-      
-           SumAux : MultAux Sum
-      
-              Sum : + MultAux Sum
-                  | empty
-      
-          MultAux : Value Mult
-      
-             Mult : * Value Mult
-                  | empty
-                
-            Value : THIS.IDENT
-                  | IDENT
-                  | NUM
-
-#### Observações
-
-* O analisador sintático **exige** um construtor na classe. Esta implementação foi além da definição inicial do projeto, onde o reconhecimento de um construtor não era necessário.
-* O analisador sintático permite o aninhamento de blocos em qualquer nível, do tipo `{ { { { { Comando } } } } }`.
-
-#### Exemplos de entradas aceitas pelo analisador
-
-Exemplo 1:
-
-    public class Pessoa
-    {
-      private int idade;
-      private String nome;
-      private double salario;
-      
-      public Pessoa (String nome, int idade )
-      {
-        this.nome = nome;
-        this.idade= idade + 5 * 3 ;
-      }
-      
-      private void dummy(double param)
-      {
-        for(;;) { 
-          // processamento
-          if (a>b) break;
-        }
-        return;
-      }
-    }
-
-Exemplo 2:
-
-    public class Car
-    {
-      private String manufacturer;
-      private String model;
-      private int year;
-      private int odometer;
-      
-      public Car()
-      {
-      }
-      
-      public void Drive(int kilometers)
-      {
-        this.odometer = this.odometer + kilometers;
-      }
-    }
-
-Exemplo 3:
-
-    public class Foo 
-    {
-      private int bar;
-      
-      public Foo(int bar)
-      {
-        {
-          {
-            {
-              {
-                {
-                  this.bar = bar;
-                }
-              }
-            }
-          }
-        }
-      }
-      
-      public void foobar() {}
-    }
+O arquivo de entrada é opcional. Ao não informá-lo o analisador utilizará o stream de entrada.
