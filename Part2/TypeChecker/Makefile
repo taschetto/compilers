@@ -1,5 +1,5 @@
-jflex       = java -jar ../lib/jflex-1.5.0.jar
-byacc       = ../lib/./byacc -tv -J
+jflex       = java -jar ../../lib/jflex-1.5.0.jar
+byacc      = ../../lib/./byaccj -tv -J
 
 all: flex yacc project
 

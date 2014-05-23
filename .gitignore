@@ -1,5 +1,4 @@
 # Ignores
-!/Part1/lib/jflex-1.5.0.jar
 
 # Byte code and other
 *.swp
@@ -9,6 +8,10 @@
 *.jar
 *.war
 *.ear
+
+# Exceptions
+!/lib/jflex-1.5.0.jar
+!/lib/byaccj
 
 # Other
 *.java~
@@ -23,3 +26,5 @@
 
 /Part1/AsdrClass/dist/
 /Part2/TypeChecker/nbproject/private/
+
+
