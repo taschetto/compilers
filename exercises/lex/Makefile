@@ -1,7 +1,8 @@
 current_dir = $(shell pwd)
+jflex = java -jar ../../lib/jflex-1.5.0.jar
 
 all: jflex
 	ant
 
 jflex:
-	java -jar $(current_dir)/lib/jflex-1.5.0.jar src/docmodel/DocModel.flex
+	$(jflex) src/docmodel/DocModel.flex

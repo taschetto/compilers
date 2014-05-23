@@ -29,6 +29,7 @@ public class DocModelLexer {
 
   /** initial size of the lookahead buffer */
   private static final int ZZ_BUFFERSIZE = 16384;
+  private static final String ZZ_NL = System.getProperty("line.separator");
 
   /** lexical states */
   public static final int YYINITIAL = 0;
@@ -715,46 +716,68 @@ public class DocModelLexer {
 
       switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
         case 1: 
+          System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"match: --"+yytext()+"--");
+          System.out.println("action [150] { System.out.println(\"Illegal character <\" + yytext() + \">\"); }");
           { System.out.println("Illegal character <" + yytext() + ">");
           }
         case 12: break;
         case 2: 
+          System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"match: --"+yytext()+"--");
+          System.out.println("action [146] { /* ignore */ }");
           { /* ignore */
           }
         case 13: break;
         case 3: 
+          System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"match: --"+yytext()+"--");
+          System.out.println("action [139] { System.out.println(\"IDENTIFIER\"); }");
           { System.out.println("IDENTIFIER");
           }
         case 14: break;
         case 4: 
+          System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"match: --"+yytext()+"--");
+          System.out.println("action [140] { System.out.println(\"INTEGER_LITERAL\"); }");
           { System.out.println("INTEGER_LITERAL");
           }
         case 15: break;
         case 5: 
+          System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"match: --"+yytext()+"--");
+          System.out.println("action [141] { System.out.println(\"DOUBLE QUOTE\"); }");
           { System.out.println("DOUBLE QUOTE");
           }
         case 16: break;
         case 6: 
+          System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"match: --"+yytext()+"--");
+          System.out.println("action [142] { System.out.println(\"EQ\"); }");
           { System.out.println("EQ");
           }
         case 17: break;
         case 7: 
+          System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"match: --"+yytext()+"--");
+          System.out.println("action [144] { System.out.println(\"PLUS\"); }");
           { System.out.println("PLUS");
           }
         case 18: break;
         case 8: 
+          System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"match: --"+yytext()+"--");
+          System.out.println("action [143] { System.out.println(\"EQEQ\"); }");
           { System.out.println("EQEQ");
           }
         case 19: break;
         case 9: 
+          System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"match: --"+yytext()+"--");
+          System.out.println("action [137] { System.out.println(\"BREAK\"); }");
           { System.out.println("BREAK");
           }
         case 20: break;
         case 10: 
+          System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"match: --"+yytext()+"--");
+          System.out.println("action [136] { System.out.println(\"BOOLEAN\"); }");
           { System.out.println("BOOLEAN");
           }
         case 21: break;
         case 11: 
+          System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"match: --"+yytext()+"--");
+          System.out.println("action [135] { System.out.println(\"ABSTRACT\"); }");
           { System.out.println("ABSTRACT");
           }
         case 22: break;

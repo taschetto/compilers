@@ -1,12 +1,13 @@
-current_dir = $(shell pwd)
+jflex = java -jar ../../../lib/jflex-1.5.0.jar
+byacc = ./../../../lib/byaccj -tv -J
 
-all: flex byacc java
+all: flex yacc java
 
 flex:
-	java -jar $(current_dir)/../lib/jflex-1.5.0.jar lexico.flex
+	$(jflex) lexico.flex
 
-byacc:
-	./../lib/yacc.linux -tv -J exercicio.y
+yacc:
+	$(byacc) exercicio.y
 
 java:
 	javac Parser.java

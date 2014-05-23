@@ -1,4 +1,4 @@
-JFLEX  = java -jar JFlex.jar 
+JFLEX  = java -jar ../../lib/jflex-1.5.0.jar 
 JAVAC  = javac
 
 VAR = 

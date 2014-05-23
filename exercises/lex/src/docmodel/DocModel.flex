@@ -93,11 +93,8 @@ identifiers. There can be more than one line starting with %state.
 
 %unicode
 %public
-<<<<<<< HEAD
 %debug
-=======
 %standalone
->>>>>>> 52733e27e34fbbb7ecf189a9b9e1ac501b9d38ee
 
 LineTerminator = \r|\n|\r\n
 InputCharacter = [^\r\n]

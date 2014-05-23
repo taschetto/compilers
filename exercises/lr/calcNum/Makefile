@@ -1,7 +1,10 @@
-current_dir = $(shell pwd)
+jflex = java -jar ../../../lib/jflex-1.5.0.jar
+byacc = ./../../../lib/byaccj
 
-all: flex
+all: flex yacc
 
 flex:
-	java -jar $(current_dir)/../lib/jflex-1.5.0.jar calc.flex
+	$(jflex) calc.flex
 
+yacc:
+	$(byacc) calc.y
