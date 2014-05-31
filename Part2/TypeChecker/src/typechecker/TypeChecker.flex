@@ -1,3 +1,5 @@
+package typechecker;
+
 %%
 
 %byaccj
@@ -11,11 +13,9 @@
     yyline = 1;
   }
 
-
   public int getLine() {
-      return yyline;
+    return yyline;
   }
-
 %}
 
 NUM = [0-9]+
@@ -23,23 +23,21 @@ NL  = \n|\r|\r\n
 
 %%
 
-
 "$TRACE_ON"  { yyparser.setDebug(true);  }
 "$TRACE_OFF" { yyparser.setDebug(false); }
-"$MOSTRA_TS" { yyparser.listarTS(); }
-
+"$MOSTRA_TS" { yyparser.printTable(); }
 
 /* operators */
-"."  |
-"+"  | 
-"="  |
-">"  |
-";"  |
-"("  |
-")"  |
-"\{" |
-"\}" |
-"\[" | 
+"."   |
+"+"   | 
+"="   |
+">"   |
+";"   |
+"("   |
+")"   |
+"\{"  |
+"\}"  |
+"\["  | 
 "\]"  { return (int) yycharat(0); }
 
 "&&"  { return Parser.AND; }
@@ -62,7 +60,7 @@ struct  { return Parser.STRUCT; }
 \"[^\"]*\"  { yyparser.yylval = new ParserVal(yytext());
               return Parser.LITERAL; }
 
-{NL}   {yyline++;}
+{NL}   { yyline++; }
 [ \t]+ { }
 
-.    { System.err.println("Error: unexpected character '"+yytext()+"' na linha "+yyline); return YYEOF; }
+.    { System.err.println("Error: unexpected character '" + yytext() + "' on line " + yyline + "."); return YYEOF; }
