@@ -1,20 +1,21 @@
 jflex = java -jar ../../lib/jflex-1.5.0.jar
-byacc = ../../lib/./byaccj -tv -J -Jpackage=typechecker
-src   = src/typechecker/
+byacc = ../../lib/./byaccj -tv -J
+src   = 
 
-all: flex yacc project
+all: flex yacc java
 
 flex:
 	$(jflex) $(src)TypeChecker.flex
 
 yacc:
 	$(byacc) $(src)TypeChecker.y
-	mv Parser.java ParserVal.java y.output $(src)
 
-project:
-	ant
+java:
+	javac Parser.java
+
+run:
+	java Parser test.txt
 
 clean:
-	ant clean
 	rm -f $(src)Yylex.java
 	rm -f $(src)Parser.java $(src)ParserVal.java $(src)y.output

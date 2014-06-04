@@ -1,5 +1,3 @@
-package typechecker;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,11 +21,16 @@ public class SymbolTable
       System.out.println(symbol);
     }
   }
-      
+
   public Symbol search(String id)
   {
+    return search(id, "");
+  }
+      
+  public Symbol search(String id, String scope)
+  {
     for (Symbol symbol : list) {
-      if (symbol.getId().equals(symbol)) {
+      if (symbol.getId().equals(id) && symbol.getScope().equals(scope)) {
         return symbol;
       }
     }

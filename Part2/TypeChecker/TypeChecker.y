@@ -24,19 +24,19 @@ prog  : { currScope = ""; currClass = SymbolClass.GlobalVar; } dList main ;
 dList : decl dList | ;
 
 decl  : declStruct 
-      | type IDENT ';' { Symbol symbol = ts.search($2);
+      | type IDENT ';' { Symbol symbol = ts.search($2, currScope);
                          if (symbol != null) 
                            yyerror("(sem) variavel >" + $2 + "< jah declarada");
                          else
                            ts.insert(new Symbol($2, (Symbol)$1, currScope, currClass)); }
-      | type '[' NUM ']' IDENT  ';' { Symbol symbol = ts.search($5);
+      | type '[' NUM ']' IDENT  ';' { Symbol symbol = ts.search($5, currScope);
                                       if (symbol != null)
                                         yyerror("(sem) variavel >" + $5 + "< jah declarada");
                                       else
                                         ts.insert(new Symbol($5, Tp_ARRAY, $3, (Symbol)$1, currScope, currClass)); }
       ;
               
-declStruct : STRUCT IDENT { Symbol symbol = ts.search($2);
+declStruct : STRUCT IDENT { Symbol symbol = ts.search($2, currScope);
                             if (symbol != null)
                               yyerror("(sem) variavel >" + $2 + "< jah declarada");
                             else
@@ -56,8 +56,8 @@ type : INT    { $$ = Tp_INT; }
      | BOOL   { $$ = Tp_BOOL; }
 	   | STRING { $$ = Tp_STRING; }
      | IDENT  { Symbol symbol = ts.search($1);
-                if (symbol == null ) 
-                  yyerror("(sem) Nome de tipo <" + $1 + "> nao declarado ");
+                if (symbol == null) 
+                  yyerror("(sem) Nome de tipo <" + $1 + "> nao declarado no escopo <" + currScope  + ">");
                 else 
                   $$ = symbol; } 
      ;
@@ -80,13 +80,13 @@ exp : exp '+' exp { $$ = validaTipo('+', (Symbol)$1, (Symbol)$3); }
     | NUM         { $$ = Tp_INT; }      
     | '(' exp ')' { $$ = $2; }
     | LITERAL     { $$ = Tp_STRING; }      
-    | IDENT       { Symbol symbol = ts.search($1);
+    | IDENT       { Symbol symbol = ts.search($1, currScope);
                     if (symbol == null) 
 	                    yyerror("(sem) var <" + $1 + "> nao declarada");                
                     else
 			                $$ = symbol.getType();  }   
     | IDENT '[' exp ']' 
-                 { Symbol symbol = ts.search($1);
+                 { Symbol symbol = ts.search($1, currScope);
     	             if (symbol == null) 
 	                     yyerror("(sem) var <" + $1 + "> nao declarada");                
                    else
@@ -220,7 +220,7 @@ exp : exp '+' exp { $$ = validaTipo('+', (Symbol)$1, (Symbol)$3); }
 
 /*
   | IDENT '=' exp  
-                 { Symbol symbol = ts.search($1);
+                 { Symbol symbol = ts.search($1, currScope);
     	             if (symbol == null) 
                        yyerror("(sem) variavel >" + $1 + "< nao declarada");
                    else 

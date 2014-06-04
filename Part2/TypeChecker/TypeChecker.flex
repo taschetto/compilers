@@ -1,5 +1,3 @@
-package typechecker;
-
 %%
 
 %byaccj

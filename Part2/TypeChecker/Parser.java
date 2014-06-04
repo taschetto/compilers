@@ -13,11 +13,10 @@
 
 
 
-package typechecker;
 
 
 
-//#line 2 "src/typechecker/TypeChecker.y"
+//#line 2 "TypeChecker.y"
   import java.io.*;
 //#line 19 "Parser.java"
 
@@ -334,7 +333,7 @@ final static String yyrule[] = {
 "exp : exp '=' exp",
 };
 
-//#line 99 "src/typechecker/TypeChecker.y"
+//#line 99 "TypeChecker.y"
 
   private Yylex lexer;
   private SymbolTable ts;
@@ -459,7 +458,7 @@ final static String yyrule[] = {
 
 /*
   | IDENT '=' exp  
-                 { Symbol symbol = ts.search($1);
+                 { Symbol symbol = ts.search($1, currScope);
     	             if (symbol == null) 
                        yyerror("(sem) variavel >" + $1 + "< nao declarada");
                    else 
@@ -642,28 +641,28 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 1:
-//#line 22 "src/typechecker/TypeChecker.y"
+//#line 22 "TypeChecker.y"
 { currScope = ""; currClass = SymbolClass.GlobalVar; }
 break;
 case 6:
-//#line 27 "src/typechecker/TypeChecker.y"
-{ Symbol symbol = ts.search(val_peek(1).sval);
+//#line 27 "TypeChecker.y"
+{ Symbol symbol = ts.search(val_peek(1).sval, currScope);
                          if (symbol != null) 
                            yyerror("(sem) variavel >" + val_peek(1).sval + "< jah declarada");
                          else
                            ts.insert(new Symbol(val_peek(1).sval, (Symbol)val_peek(2).obj, currScope, currClass)); }
 break;
 case 7:
-//#line 32 "src/typechecker/TypeChecker.y"
-{ Symbol symbol = ts.search(val_peek(1).sval);
+//#line 32 "TypeChecker.y"
+{ Symbol symbol = ts.search(val_peek(1).sval, currScope);
                                       if (symbol != null)
                                         yyerror("(sem) variavel >" + val_peek(1).sval + "< jah declarada");
                                       else
                                         ts.insert(new Symbol(val_peek(1).sval, Tp_ARRAY, val_peek(3).ival, (Symbol)val_peek(5).obj, currScope, currClass)); }
 break;
 case 8:
-//#line 39 "src/typechecker/TypeChecker.y"
-{ Symbol symbol = ts.search(val_peek(0).sval);
+//#line 39 "TypeChecker.y"
+{ Symbol symbol = ts.search(val_peek(0).sval, currScope);
                             if (symbol != null)
                               yyerror("(sem) variavel >" + val_peek(0).sval + "< jah declarada");
                             else
@@ -671,73 +670,73 @@ case 8:
                              currScope = val_peek(0).sval; currClass = SymbolClass.StructField; }
 break;
 case 9:
-//#line 46 "src/typechecker/TypeChecker.y"
+//#line 46 "TypeChecker.y"
 { currScope = ""; currClass = SymbolClass.GlobalVar; }
 break;
 case 11:
-//#line 54 "src/typechecker/TypeChecker.y"
+//#line 54 "TypeChecker.y"
 { yyval.obj = Tp_INT; }
 break;
 case 12:
-//#line 55 "src/typechecker/TypeChecker.y"
+//#line 55 "TypeChecker.y"
 { yyval.obj = Tp_FLOAT; }
 break;
 case 13:
-//#line 56 "src/typechecker/TypeChecker.y"
+//#line 56 "TypeChecker.y"
 { yyval.obj = Tp_BOOL; }
 break;
 case 14:
-//#line 57 "src/typechecker/TypeChecker.y"
+//#line 57 "TypeChecker.y"
 { yyval.obj = Tp_STRING; }
 break;
 case 15:
-//#line 58 "src/typechecker/TypeChecker.y"
+//#line 58 "TypeChecker.y"
 { Symbol symbol = ts.search(val_peek(0).sval);
-                if (symbol == null ) 
-                  yyerror("(sem) Nome de tipo <" + val_peek(0).sval + "> nao declarado ");
+                if (symbol == null) 
+                  yyerror("(sem) Nome de tipo <" + val_peek(0).sval + "> nao declarado no escopo <" + currScope  + ">");
                 else 
                   yyval.obj = symbol; }
 break;
 case 21:
-//#line 72 "src/typechecker/TypeChecker.y"
+//#line 72 "TypeChecker.y"
 { if (((Symbol)val_peek(2).obj).getType() != Tp_BOOL.getType())
                               yyerror("(sem) expressão (if) deve ser lógica "+((Symbol)val_peek(2).obj).getType()); }
 break;
 case 22:
-//#line 77 "src/typechecker/TypeChecker.y"
+//#line 77 "TypeChecker.y"
 { yyval.obj = validaTipo('+', (Symbol)val_peek(2).obj, (Symbol)val_peek(0).obj); }
 break;
 case 23:
-//#line 78 "src/typechecker/TypeChecker.y"
+//#line 78 "TypeChecker.y"
 { yyval.obj = validaTipo('>', (Symbol)val_peek(2).obj, (Symbol)val_peek(0).obj);}
 break;
 case 24:
-//#line 79 "src/typechecker/TypeChecker.y"
+//#line 79 "TypeChecker.y"
 { yyval.obj = validaTipo(AND, (Symbol)val_peek(2).obj, (Symbol)val_peek(0).obj); }
 break;
 case 25:
-//#line 80 "src/typechecker/TypeChecker.y"
+//#line 80 "TypeChecker.y"
 { yyval.obj = Tp_INT; }
 break;
 case 26:
-//#line 81 "src/typechecker/TypeChecker.y"
+//#line 81 "TypeChecker.y"
 { yyval.obj = val_peek(1).obj; }
 break;
 case 27:
-//#line 82 "src/typechecker/TypeChecker.y"
+//#line 82 "TypeChecker.y"
 { yyval.obj = Tp_STRING; }
 break;
 case 28:
-//#line 83 "src/typechecker/TypeChecker.y"
-{ Symbol symbol = ts.search(val_peek(0).sval);
+//#line 83 "TypeChecker.y"
+{ Symbol symbol = ts.search(val_peek(0).sval, currScope);
                     if (symbol == null) 
 	                    yyerror("(sem) var <" + val_peek(0).sval + "> nao declarada");                
                     else
 			                yyval.obj = symbol.getType();  }
 break;
 case 29:
-//#line 89 "src/typechecker/TypeChecker.y"
-{ Symbol symbol = ts.search(val_peek(3).sval);
+//#line 89 "TypeChecker.y"
+{ Symbol symbol = ts.search(val_peek(3).sval, currScope);
     	             if (symbol == null) 
 	                     yyerror("(sem) var <" + val_peek(3).sval + "> nao declarada");                
                    else
@@ -745,7 +744,7 @@ case 29:
 						     }
 break;
 case 30:
-//#line 95 "src/typechecker/TypeChecker.y"
+//#line 95 "TypeChecker.y"
 { yyval.obj = validaTipo(ATRIB, (Symbol)val_peek(2).obj, (Symbol)val_peek(0).obj); }
 break;
 //#line 674 "Parser.java"

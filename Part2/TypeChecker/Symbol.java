@@ -1,5 +1,3 @@
-package typechecker;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +29,16 @@ public class Symbol
     return id; 
   }
 
+  public SymbolClass getSymbolClass()
+  {
+    return sclass;
+  }
+
+  public String getScope()
+  {
+    return scope;
+  }
+
   public Symbol getType() {
     return type; 
   }
@@ -45,6 +53,11 @@ public class Symbol
 
   public Symbol getBaseType() {
     return baseType;
+  }
+
+  public SymbolTable getLocals()
+  {
+    return locals;
   }
 
   public String toString() {
@@ -85,7 +98,7 @@ public class Symbol
     else if (type == Parser.Tp_STRUCT)  return "struct";
     else if (type == Parser.Tp_ARRAY)   return "array";
     else if (type == Parser.Tp_ERRO)    return  "_erro_";
-    else                                return "error/tp";
+    else return type.getId();
   }
 
 //  public void insereLocal(String id, int tp, ClasseID cl) {
