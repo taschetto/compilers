@@ -11,6 +11,7 @@
 %left '+'
 %left AND
 %left '['
+%right '.'
 
 %type <sval> IDENT
 %type <ival> NUM
@@ -92,7 +93,22 @@ exp : exp '+' exp { $$ = validaTipo('+', (Symbol)$1, (Symbol)$3); }
                    else
                        $$ = validaTipo('[', symbol, (Symbol)$3);
 						     }
-    | exp '=' exp { $$ = validaTipo(ATRIB, (Symbol)$1, (Symbol)$3); } 
+    | exp '=' exp { $$ = validaTipo(ATRIB, (Symbol)$1, (Symbol)$3); }
+    | exp '.' IDENT {
+                      Symbol exp = (Symbol)$1;
+                      if (exp.getSymbolClass() == SymbolClass.StructName)
+                      {
+                        Symbol ident = ts.search($3, exp.getId());
+                        if (ident == null)
+                          yyerror("(sem) var <" + $3  + "> nao declarada na struct " + exp.getId());
+                        else
+                        {
+                          $$ = ident.getType();
+                        }
+                      }
+                      else
+                        yyerror("(sem) var <" + exp.getId()  + "> não é um tipo struct.");
+                    }
     ;
 
 %%

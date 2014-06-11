@@ -42,6 +42,7 @@
   28      | IDENT
   29      | IDENT '[' exp ']'
   30      | exp '=' exp
+  31      | exp '.' IDENT
 
 state 0
 	$accept : . prog $end  (0)
@@ -349,6 +350,7 @@ state 36
 	'='  reduce 28
 	'>'  reduce 28
 	'+'  reduce 28
+	'.'  reduce 28
 	';'  reduce 28
 	']'  reduce 28
 	')'  reduce 28
@@ -397,12 +399,14 @@ state 42
 	exp : exp . '>' exp  (23)
 	exp : exp . AND exp  (24)
 	exp : exp . '=' exp  (30)
+	exp : exp . '.' IDENT  (31)
 
 	AND  shift 47
 	'='  shift 48
 	'>'  shift 49
 	'+'  shift 50
-	';'  shift 51
+	'.'  shift 51
+	';'  shift 52
 	.  error
 
 
@@ -421,7 +425,7 @@ state 44
 	'('  shift 41
 	.  error
 
-	exp  goto 52
+	exp  goto 53
 
 
 state 45
@@ -433,7 +437,7 @@ state 45
 	'('  shift 41
 	.  error
 
-	exp  goto 53
+	exp  goto 54
 
 
 state 46
@@ -442,12 +446,14 @@ state 46
 	exp : exp . AND exp  (24)
 	exp : '(' exp . ')'  (26)
 	exp : exp . '=' exp  (30)
+	exp : exp . '.' IDENT  (31)
 
 	AND  shift 47
 	'='  shift 48
 	'>'  shift 49
 	'+'  shift 50
-	')'  shift 54
+	'.'  shift 51
+	')'  shift 55
 	.  error
 
 
@@ -460,7 +466,7 @@ state 47
 	'('  shift 41
 	.  error
 
-	exp  goto 55
+	exp  goto 56
 
 
 state 48
@@ -472,7 +478,7 @@ state 48
 	'('  shift 41
 	.  error
 
-	exp  goto 56
+	exp  goto 57
 
 
 state 49
@@ -484,7 +490,7 @@ state 49
 	'('  shift 41
 	.  error
 
-	exp  goto 57
+	exp  goto 58
 
 
 state 50
@@ -496,100 +502,125 @@ state 50
 	'('  shift 41
 	.  error
 
-	exp  goto 58
+	exp  goto 59
 
 
 state 51
+	exp : exp '.' . IDENT  (31)
+
+	IDENT  shift 60
+	.  error
+
+
+state 52
 	cmd : exp ';' .  (20)
 
 	.  reduce 20
 
 
-state 52
+state 53
 	exp : exp . '+' exp  (22)
 	exp : exp . '>' exp  (23)
 	exp : exp . AND exp  (24)
 	exp : IDENT '[' exp . ']'  (29)
 	exp : exp . '=' exp  (30)
+	exp : exp . '.' IDENT  (31)
 
 	AND  shift 47
 	'='  shift 48
 	'>'  shift 49
 	'+'  shift 50
-	']'  shift 59
+	'.'  shift 51
+	']'  shift 61
 	.  error
 
 
-state 53
+state 54
 	cmd : IF '(' exp . ')' cmd  (21)
 	exp : exp . '+' exp  (22)
 	exp : exp . '>' exp  (23)
 	exp : exp . AND exp  (24)
 	exp : exp . '=' exp  (30)
+	exp : exp . '.' IDENT  (31)
 
 	AND  shift 47
 	'='  shift 48
 	'>'  shift 49
 	'+'  shift 50
-	')'  shift 60
+	'.'  shift 51
+	')'  shift 62
 	.  error
 
 
-state 54
+state 55
 	exp : '(' exp ')' .  (26)
 
 	.  reduce 26
-
-
-state 55
-	exp : exp . '+' exp  (22)
-	exp : exp . '>' exp  (23)
-	exp : exp . AND exp  (24)
-	exp : exp AND exp .  (24)
-	exp : exp . '=' exp  (30)
-
-	.  reduce 24
 
 
 state 56
 	exp : exp . '+' exp  (22)
 	exp : exp . '>' exp  (23)
 	exp : exp . AND exp  (24)
+	exp : exp AND exp .  (24)
 	exp : exp . '=' exp  (30)
-	exp : exp '=' exp .  (30)
+	exp : exp . '.' IDENT  (31)
 
-	AND  shift 47
-	'='  shift 48
-	'>'  shift 49
-	'+'  shift 50
-	';'  reduce 30
-	']'  reduce 30
-	')'  reduce 30
+	'.'  shift 51
+	AND  reduce 24
+	'='  reduce 24
+	'>'  reduce 24
+	'+'  reduce 24
+	';'  reduce 24
+	']'  reduce 24
+	')'  reduce 24
 
 
 state 57
 	exp : exp . '+' exp  (22)
 	exp : exp . '>' exp  (23)
+	exp : exp . AND exp  (24)
+	exp : exp . '=' exp  (30)
+	exp : exp '=' exp .  (30)
+	exp : exp . '.' IDENT  (31)
+
+	AND  shift 47
+	'='  shift 48
+	'>'  shift 49
+	'+'  shift 50
+	'.'  shift 51
+	';'  reduce 30
+	']'  reduce 30
+	')'  reduce 30
+
+
+state 58
+	exp : exp . '+' exp  (22)
+	exp : exp . '>' exp  (23)
 	exp : exp '>' exp .  (23)
 	exp : exp . AND exp  (24)
 	exp : exp . '=' exp  (30)
+	exp : exp . '.' IDENT  (31)
 
 	AND  shift 47
 	'+'  shift 50
+	'.'  shift 51
 	'='  reduce 23
 	';'  reduce 23
 	']'  reduce 23
 	')'  reduce 23
 
 
-state 58
+state 59
 	exp : exp . '+' exp  (22)
 	exp : exp '+' exp .  (22)
 	exp : exp . '>' exp  (23)
 	exp : exp . AND exp  (24)
 	exp : exp . '=' exp  (30)
+	exp : exp . '.' IDENT  (31)
 
 	AND  shift 47
+	'.'  shift 51
 	'='  reduce 22
 	'>'  reduce 22
 	'+'  reduce 22
@@ -598,13 +629,19 @@ state 58
 	')'  reduce 22
 
 
-state 59
+state 60
+	exp : exp '.' IDENT .  (31)
+
+	.  reduce 31
+
+
+state 61
 	exp : IDENT '[' exp ']' .  (29)
 
 	.  reduce 29
 
 
-state 60
+state 62
 	cmd : IF '(' exp ')' . cmd  (21)
 
 	IDENT  shift 36
@@ -615,14 +652,14 @@ state 60
 	.  error
 
 	exp  goto 42
-	cmd  goto 61
+	cmd  goto 63
 
 
-state 61
+state 63
 	cmd : IF '(' exp ')' cmd .  (21)
 
 	.  reduce 21
 
 
-24 terminals, 14 nonterminals
-31 grammar rules, 62 states
+25 terminals, 14 nonterminals
+32 grammar rules, 64 states
