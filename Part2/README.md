@@ -3,8 +3,11 @@
 Parte 2 do trabalho prático da disciplina de Compiladores da PUCRS (semestre 2014/1), ministrada pelo professor Alexandre Agustini.
 
 **Copyright (c) 2014**
+
 **12180247-4 Guilherme Taschetto (gtaschetto@gmail.com)**
+
 **07104168-5 Fernando Delazeri (panchos3t@gmail.com)**
+
 **11100166-5 Tomas Ceia Ramos de Souza (tomas.souza@gmail.com)**
 
 ## Compilação
