@@ -13,9 +13,6 @@ yacc:
 java:
 	javac Parser.java
 
-run:
-	java Parser test.txt
-
 clean:
 	rm -f $(src)Yylex.java*
 	rm -f $(src)Parser.java $(src)ParserVal.java $(src)y.output
