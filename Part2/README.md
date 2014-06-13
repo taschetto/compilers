@@ -6,12 +6,6 @@ Parte 2 do trabalho prático da disciplina de Compiladores da PUCRS (semestre 20
 **12180247-4 Guilherme Taschetto (gtaschetto@gmail.com)**
 **07104168-5 Fernando Delazeri (panchos3t@gmail.com)**
 
-## Dependências
-
-Ambos os projetos foram criados utilizando a IDE Java Netbeans. A verificação do código e compilação pode ser feita utilizando esta IDE.
-
-Alternativamente, um `Makefile` é distribuído com o projeto. Este `Makefile` utiliza a ferramenta [Apache Ant(TM)](http://ant.apache.org/) para compilação por linha de comando. Caso não possua o `ant`, instale-o com `sudo apt-get install ant` ou **utilize a IDE do Netbeans para realizar a compilação**.
-
 ## Compilação
 
 Esta distribuição consta com o diretório do projeto `TypeChecker`, contendo, além dos fontes, um `Makefile` com a seguinte sintaxe de uso:
@@ -30,9 +24,9 @@ Para gerar o analisador sintático ascendente baseado na especificação YACC:
     
 Para compilar o projeto Java:
 
-    make project
+    make java
 
-Para limpar o diretório:
+Para limpar o diretório, removendo arquivos gerados nas etapas anteriores:
 
     make clean
     
@@ -40,6 +34,6 @@ Para limpar o diretório:
 
     cd TypeChecker
     make
-    java -jar dist/TypeChecker.jar [arquivo de entrada]
+    java Parser [arquivo de entrada]
 
 O arquivo de entrada é opcional. Ao não informá-lo o analisador utilizará o stream de entrada.
