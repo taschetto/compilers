@@ -50,8 +50,10 @@ lcmd : lcmd cmd
 	   |
 	   ;
 	   
-cmd :  ID '=' exp	';' {  System.out.println("\tPOPL %EDX");
+cmd : exp ';' { System.out.println("\tPOPL %EDX");  }
+      | ID '=' exp	';' {  System.out.println("\tPOPL %EDX");
   						   System.out.println("\tMOVL %EDX, _"+$1);
+                 System.out.println("\tPUSHL _"+$1);
 					     }
 			| '{' lcmd '}' { System.out.println("\t\t# terminou o bloco..."); }
 					     
