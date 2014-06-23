@@ -61,7 +61,8 @@ NL  = \n | \r | \r\n
 "!="   {  return Parser.NEQ; }
 
 "&&"   { return Parser.AND; }
-"||"   {  return Parser.OR; }
+"||"   { return Parser.OR;  }
+"++"   { return Parser.INC; }
 
 int    { return Parser.INT;     }
 float  { return Parser.FLOAT;   }

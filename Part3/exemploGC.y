@@ -10,6 +10,7 @@
 %token WHILE,TRUE, FALSE, IF, ELSE
 %token EQ, LEQ, GEQ, NEQ 
 %token AND, OR
+%token INC
 
 %right '='
 %left OR
@@ -51,10 +52,6 @@ lcmd : lcmd cmd
 	   ;
 	   
 cmd : exp ';' { System.out.println("\tPOPL %EDX");  }
-      | ID '=' exp	';' {  System.out.println("\tPOPL %EDX");
-  						   System.out.println("\tMOVL %EDX, _"+$1);
-                 System.out.println("\tPUSHL _"+$1);
-					     }
 			| '{' lcmd '}' { System.out.println("\t\t# terminou o bloco..."); }
 					     
 					       
@@ -136,9 +133,32 @@ restoIf : ELSE  {
 		;										
 
 
-exp :  NUM  { System.out.println("\tPUSHL $"+$1); } 
+exp : ID '=' exp {
+                   System.out.println("\tPOPL %EDX");
+  						     System.out.println("\tMOVL %EDX, _"+$1);
+                   System.out.println("\tPUSHL _"+$1);
+					       }
+    |  NUM  { System.out.println("\tPUSHL $"+$1); } 
     |  TRUE  { System.out.println("\tPUSHL $1"); } 
     |  FALSE  { System.out.println("\tPUSHL $0"); }      
+    | ID INC {
+               System.out.println("\tPUSHL _"+$1);
+               System.out.println("\tPUSHL $1");
+               System.out.println("\tPOPL %EDX");
+               System.out.println("\tPOPL %EAX");
+               System.out.println("\tPUSHL %EAX");
+               System.out.println("\tADDL %EDX, %EAX");
+               System.out.println("\tMOVL %EAX, _"+$1);
+             }
+    | INC ID {
+               System.out.println("\tPUSHL _"+$2);
+               System.out.println("\tPUSHL $1");
+               System.out.println("\tPOPL %EDX");
+               System.out.println("\tPOPL %EAX");
+               System.out.println("\tADDL %EDX, %EAX");
+               System.out.println("\tMOVL %EAX, _"+$2);
+               System.out.println("\tPUSHL _"+$2);
+             }
  		| ID   { System.out.println("\tPUSHL _"+$1); }
     | '(' exp	')' 
     | '!' exp       { gcExpNot(); }

@@ -1,0 +1,17 @@
+int a;
+int b;
+int c;
+int d;
+
+void main()
+{
+  a = b = c = 1;
+  d = c + 1;
+  d++;
+  ++d;
+  write("a = ", a);
+  write("b = ", b);
+  write("c = ", c);
+  write("d = ", d++);
+  write("d = ", ++d);
+}
