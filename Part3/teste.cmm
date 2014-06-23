@@ -21,19 +21,18 @@ void main()
   {
     if (d == 3)
     {
+      write("CONTINUE! d = ", d);
       d++;
       continue;
     }
 
-    if (d < 5)
+    if (d > 5)
     {
-      write("while: MENOR d = ", d);
-    }
-    else
-    {
-      write("while: MAIOR d = ", d);
+      write("BREAK! d = ", d);
       break;
     }
+
+    write("while: MAIOR d = ", d);
     d++;
   }
 
@@ -51,10 +50,16 @@ void main()
       break;
     }
 
+    a = a + b + c;
+    b = a + c;
+    c = c + a + b + d;
     write("for: d = ", d);
   }
 
   d = 999;
+  write("Acabou! a = ", a);
+  write("Acabou! b = ", b);
+  write("Acabou! c = ", c);
   write("Acabou! d = ", d);
 
 }
