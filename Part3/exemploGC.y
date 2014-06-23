@@ -11,6 +11,7 @@
 %token EQ, LEQ, GEQ, NEQ 
 %token AND, OR
 %token INC
+%token CONTINUE, BREAK
 
 %right '='
 %left OR
@@ -52,10 +53,8 @@ lcmd : lcmd cmd
 	   ;
 	   
 cmd : exp ';' { System.out.println("\tPOPL %EDX");  }
-			| '{' lcmd '}' { System.out.println("\t\t# terminou o bloco..."); }
-					     
-					       
-      | WRITE '(' LIT ')' ';' { strTab.add($3);
+    | '{' lcmd '}' { System.out.println("\t\t# terminou o bloco..."); }
+    | WRITE '(' LIT ')' ';' { strTab.add($3);
                                 System.out.println("\tMOVL $_str_"+strCount+"Len, %EDX"); 
 				System.out.println("\tMOVL $_str_"+strCount+", %ECX"); 
                                 System.out.println("\tCALL _writeLit"); 
@@ -192,11 +191,10 @@ exp : ID '=' exp {
   private ArrayList<String> strTab = new ArrayList<String>();
 
   private Stack<Integer> pRot = new Stack<Integer>();
+  private Stack<Integer> pRot2 = new Stack<Integer>();
   private int proxRot = 1;
 
-
   public static int ARRAY = 100;
-
 
   private int yylex () {
     int yyl_return = -1;
