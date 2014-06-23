@@ -87,19 +87,25 @@ cmd : exp ';' { System.out.println("\tPOPL %EDX");  }
 								}
          
     | WHILE {
-					pRot.push(proxRot);  proxRot += 2;
-					System.out.printf("rot_%02d:\n",pRot.peek());
+					pRot2.push(proxRot);  proxRot += 2;
+					System.out.printf("rot_%02d:\n",pRot2.peek());
 				  } 
 			 '(' exp ')' {
 			 							System.out.println("\tPOPL %EAX   # desvia se falso...");
 											System.out.println("\tCMPL $0, %EAX");
-											System.out.printf("\tJE rot_%02d\n", (int)pRot.peek()+1);
+											System.out.printf("\tJE rot_%02d\n", (int)pRot2.peek()+1);
 										} 
 				cmd		{
-				  		System.out.printf("\tJMP rot_%02d   # terminou cmd na linha de cima\n", pRot.peek());
-							System.out.printf("rot_%02d:\n",(int)pRot.peek()+1);
-							pRot.pop();
-							}  
+				  		System.out.printf("\tJMP rot_%02d   # terminou cmd na linha de cima\n", pRot2.peek());
+							System.out.printf("rot_%02d:\n",(int)pRot2.peek()+1);
+							pRot2.pop();
+							} 
+      | BREAK ';' {
+                System.out.printf("\tJMP rot_%02d # break", (int)pRot2.peek() + 1);
+              }
+      | CONTINUE ';' {
+                      System.out.printf("\tJMP rot_%02d # continue", (int)pRot2.peek());
+                     }
 							
 			| IF '(' exp {	
 											pRot.push(proxRot);  proxRot += 2;
@@ -179,7 +185,6 @@ exp : ID '=' exp {
 		| exp AND exp		{ gcExpLog(AND); }											
 		
 		;							
-
 
 %%
 
