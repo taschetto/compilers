@@ -9,24 +9,15 @@ Parte 3 do trabalho prático da disciplina de Compiladores da PUCRS (semestre 20
 
 ## Compilação
 
-Esta distribuição consta com o diretório do projeto `TypeChecker`, contendo, além dos fontes, um `Makefile` com a seguinte sintaxe de uso:
+Esta distribuição consta com o diretório do projeto `CodeGen`, contendo, além dos fontes, um `Makefile` com a seguinte sintaxe de uso:
 
-Para gerar o analisador léxico baseado na especificação FLEX, gerar o analisador sintático ascendente baseado na especificação YACC e compilar o projeto Java:
+Para gerar o gerador de código baseado nas especificações FLEX/YACC:
 
     make
-    
-Para gerar o analisador léxico baseado na especificação FLEX:
 
-    make flex
+## Execução
 
-Para gerar o gerador de código baseado na especificação YACC:
-
-    make yacc
-    
-Para compilar o projeto Java:
-
-    make java
-
-Para limpar o diretório, removendo arquivos gerados nas etapas anteriores:
-
-    make clean
+    cd CodeGen
+    make
+    ./run.x teste.cmm
+    ./teste
