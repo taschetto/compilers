@@ -1,17 +1,14 @@
-	
 %{
   import java.io.*;
   import java.util.ArrayList;
   import java.util.Stack;
 %}
- 
 
 %token ID, INT, FLOAT, BOOL, NUM, LIT, VOID, MAIN, READ, WRITE, IF, ELSE
 %token WHILE,TRUE, FALSE, IF, ELSE
 %token EQ, LEQ, GEQ, NEQ 
 %token AND, OR
-%token INC
-%token CONTINUE, BREAK
+%token INC, CONTINUE, BREAK, FOR
 
 %right '='
 %left OR
@@ -25,7 +22,6 @@
 %type <sval> LIT
 %type <sval> NUM
 %type <ival> type
-
 
 %%
 
@@ -120,7 +116,35 @@ cmd : exp ';' { System.out.println("\tPOPL %EDX");  }
 											System.out.printf("rot_%02d:\n",pRot.peek()+1);
 											pRot.pop();
 										}
-     ;
+      | FOR '(' expOp ';' {
+              pRot2.push(proxRot); proxRot += 4;
+              System.out.printf("rot_%02d:\n", pRot2.peek()+2);
+            }
+          expOpLog ';'  {
+                          System.out.println("\tPOPL %EAX # desvia se falso...");
+                          System.out.println("\tCMPL $0, %EAX");
+                          System.out.printf("\tJE rot_%02d\n", (int)pRot2.peek()+1);
+                          System.out.printf("\tJMP rot_%02d\n", (int)pRot2.peek()+3);
+                          System.out.printf("rot_%02d:\n", pRot2.peek());
+                        }
+          expOp ')' {
+                      System.out.printf("\tJMP rot_%02d\n", pRot2.peek()+2);
+                      System.out.printf("rot_%02d:\n", pRot2.peek()+3);
+                    }
+          cmd {
+                System.out.printf("\tJMP rot_%02d # volta pro incremento do for\n", pRot2.peek());
+                System.out.printf("rot_%02d: # rotulo de saida do for\n", (int)pRot2.peek()+1);
+                pRot2.pop();
+              }
+      ;
+
+  expOp : exp
+        |
+        ;
+
+  expOpLog : exp
+           | { System.out.println("\tPUSHL $1");  }
+           ;
      
      
 restoIf : ELSE  {
@@ -147,19 +171,15 @@ exp : ID '=' exp {
     |  TRUE  { System.out.println("\tPUSHL $1"); } 
     |  FALSE  { System.out.println("\tPUSHL $0"); }      
     | ID INC {
-               System.out.println("\tPUSHL _"+$1);
-               System.out.println("\tPUSHL $1");
-               System.out.println("\tPOPL %EDX");
-               System.out.println("\tPOPL %EAX");
+               System.out.println("\tMOVL $1, %EDX");
+               System.out.println("\tMOVL _" + $1 + ", %EAX");
                System.out.println("\tPUSHL %EAX");
                System.out.println("\tADDL %EDX, %EAX");
                System.out.println("\tMOVL %EAX, _"+$1);
              }
     | INC ID {
-               System.out.println("\tPUSHL _"+$2);
-               System.out.println("\tPUSHL $1");
-               System.out.println("\tPOPL %EDX");
-               System.out.println("\tPOPL %EAX");
+               System.out.println("\tMOVL $1, %EDX");
+               System.out.println("\tMOVL _" + $2 + ", %EAX");
                System.out.println("\tADDL %EDX, %EAX");
                System.out.println("\tMOVL %EAX, _"+$2);
                System.out.println("\tPUSHL _"+$2);
@@ -245,7 +265,6 @@ exp : ID '=' exp {
     }
 
   }
-
 							
 		void gcExpArit(int oparit) {
  				System.out.println("\tPOPL %EDX");
@@ -290,12 +309,9 @@ exp : ID '=' exp {
 
 	}
 
-
 	public void gcExpLog(int oplog) {
-
 	   	System.out.println("\tPOPL %EDX");
  		 	System.out.println("\tPOPL %EAX");
-
   	 	System.out.println("\tCMPL $0, %EAX");
  		  System.out.println("\tMOVL $0, %EAX");
    		System.out.println("\tSETNE %AL");
@@ -312,7 +328,6 @@ exp : ID '=' exp {
 	}
 
 	public void gcExpNot(){
-
   	 System.out.println("\tPOPL %EAX" );
  	   System.out.println("	\tNEGL %EAX" );
   	 System.out.println("	\tPUSHL %EAX");
@@ -324,7 +339,6 @@ exp : ID '=' exp {
    }
 
    private void geraFinal(){
-	
 			System.out.println("\n\n");
 			System.out.println("#");
 			System.out.println("# devolve o controle para o SO (final da main)");
@@ -332,7 +346,6 @@ exp : ID '=' exp {
 			System.out.println("\tmov $0, %ebx");
 			System.out.println("\tmov $1, %eax");
 			System.out.println("\tint $0x80");
-	
 			System.out.println("\n");
 			System.out.println("#");
 			System.out.println("# Funcoes da biblioteca (IO)");
@@ -422,7 +435,6 @@ exp : ID '=' exp {
     }
 
      private void geraAreaLiterais() { 
-
          System.out.println("#\n# area de literais\n#");
          System.out.println("__msg:");
 	       System.out.println("\t.zero 30");
