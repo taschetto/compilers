@@ -15,6 +15,10 @@ Para gerar o gerador de código baseado nas especificações FLEX/YACC:
 
     make
 
+Para limpar o diretório, removendo arquivos gerados:
+
+    make clean
+
 ## Execução
 
     cd CodeGen
