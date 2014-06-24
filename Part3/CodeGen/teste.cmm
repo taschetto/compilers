@@ -56,10 +56,31 @@ void main()
     write("for: d = ", d);
   }
 
-  d = 999;
+
+  d = 0;
+  for (; d < 3;)
+  {
+    write("d = ", d);
+    d++;
+  }
+
+  for (; d < 6; d++)
+  {
+    write("d = ", d);
+  }
+
+  for (;;)
+  {
+    write("d = ", d);
+    d++;
+    if (d >= 10)
+    {
+      break;
+    }
+  }
+
   write("Acabou! a = ", a);
   write("Acabou! b = ", b);
   write("Acabou! c = ", c);
   write("Acabou! d = ", d);
-
 }
